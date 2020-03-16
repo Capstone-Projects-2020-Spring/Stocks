@@ -1,22 +1,18 @@
 function searchStocks(id){
     
     var content = `
+<div id="searchContainer">
+<input type="text" id="myInput" onkeyup="myFunction()">
 
-    <div id="homeIntro">
-        Welcome to the stock search page, here you can look up a stock by its ticker symbol. (Example: for Apple Inc. use AAPL)
-    
-   </br> Stock Symbol: <input type="text" id="searchTicker"/>
-         
-           <input type="button" value="Submit"/>
-
+<ul id="AllStocks">
+  <li><img src="./Images/Graphs/AAPL.png"><a href="#" class="listOfStocks">AAPL</a></li>
+  <li><img src="./Images/Graphs/FB.png"><a href="#" class="listOfStocks">FB</a></li>
+  <li><img src="./Images/Graphs/MSFT.png"><a href="#" class="listOfStocks">MSFT</a></li>
+</ul>
 </div>
-    
-    
-    
-    
     `;
-    
-    
     document.getElementById(id).innerHTML = content;
-    
+
+
+
 }
