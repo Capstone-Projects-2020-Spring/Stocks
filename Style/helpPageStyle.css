@@ -18,7 +18,7 @@
 }
 
 .inTabText{
-    color: black;
+    color: white;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -27,7 +27,6 @@
 }
 
 .inTabText:hover{
-    color: white;
     white-space: normal;
 }
 

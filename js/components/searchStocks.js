@@ -1,6 +1,9 @@
 function searchStocks(id){
     
     var content = `
+<div id="searchContainer">
+<input type="text" id="myInput" onkeyup="myFunction()">
+
 
     <div id="homeIntro">
         Welcome to the stock search page, here you can look up a stock by its ticker symbol. (Example: for Apple Inc. use AAPL)
@@ -10,16 +13,13 @@ function searchStocks(id){
            <input type="button" value="Submit" onclick="searchStocks.search('searchTicker','stockPage')"/>
 
            <div id="stockPage"></div> 
+
 </div>
-    
-    
-    
-    
     `;
-    
-    
     document.getElementById(id).innerHTML = content;
-    
+
+
+
 }
 
 
