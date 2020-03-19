@@ -48,3 +48,13 @@ body {
     left:25%;
 }
 
+#loginContainer {
+    background-color: black;
+    border: solid white;
+    padding: 25px;
+    color: white;
+    text-align: center;
+    position:absolute;
+    top:50%;
+    left:40%;
+}
