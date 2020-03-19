@@ -58,7 +58,7 @@ login.loginSubmit = function(){
 
 function clickOnEnter(ev) {
     if (ev.key === 'Enter') {
-        loginSubmit();
+        login.loginSubmit();
     }
 }
 
