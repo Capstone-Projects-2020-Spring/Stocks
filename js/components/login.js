@@ -17,7 +17,6 @@ function login(id) {
 }
 
 function onResponse(response) {
-    console.log("We've entered on response function");
     var u = document.getElementById("errMessage");
     if (response.status === 204) {
         // open page, will later take to loginSuccess page then auto redirect to profile page
@@ -25,7 +24,6 @@ function onResponse(response) {
         //display login success page briefly then redirect to profile page
         setTimeout("window.location.replace('#/profile')", 5000);
     } else {
-        console.log("should display error message");
         // display error
         u.innerHTML = "Invalid username or password.";
     }
@@ -34,7 +32,6 @@ function onResponse(response) {
 login.loginSubmit = function(){
     var username = document.getElementById('username');
     var password = document.getElementById('password');
-    console.log("enter loginSubmit function " + document.getElementById('username').value + document.getElementById('password').value);
     if (document.getElementById('username').value === 'admin' && document.getElementById('password').value === 'admin') {
         console.log("success login");
         onResponse({ status: 204 });
