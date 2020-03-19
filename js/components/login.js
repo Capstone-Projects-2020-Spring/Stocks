@@ -22,6 +22,8 @@ function onResponse(response) {
     if (response.status === 204) {
         // open page, will later take to loginSuccess page then auto redirect to profile page
         window.open("#/loginSuccess", "_self");
+        //display login success page briefly then redirect to profile page
+        setTimeout("window.location.replace('#/profile')", 5000);
     } else {
         console.log("should display error message");
         // display error

@@ -1,8 +1,8 @@
 function loginSuccess(id) {
 
     var content = `
-    <div id="loginContainer">
-        <div id="loginPrompt">
+    <div id="successContainer">
+        <div id="successMessage">
             Welcome back!
                <div id="loginSuccessPage"></div> 
     </div>
