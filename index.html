@@ -21,7 +21,7 @@
                 </div>
 
                 <div class="dropdown">
-                    <img class="dropHeader" title="Account" src="./Images/navBar/account.png" alt="Account">
+                    <a href = "#/login"><img title="Account" src="./Images/navBar/account.png" alt="Account"></a>
                 </div>
 
 
@@ -42,6 +42,8 @@
         <script src="js/routeFw.js"></script>
         
         <script src="js/components/home.js"></script>
+        <script src="js/components/login.js"></script>
+        <script src="js/components/loginSuccess.js"></script>
         <script src="js/components/searchStocks.js"></script>
         <script src="js/components/helpPage.js"></script>
         <script src="js/components/filter.js"></script>
@@ -51,6 +53,8 @@
 
             myRoutes['/'] = home;  
             myRoutes['/home'] = home;
+            myRoutes['/login'] = login;
+            myRoutes['/loginSuccess'] = loginSuccess;
             myRoutes['/searchStocks'] = searchStocks;
             myRoutes['/helpPage'] = helpPage;
             
