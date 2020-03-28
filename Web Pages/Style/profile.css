@@ -1,0 +1,17 @@
+#masterProfileDiv{
+    margin-top: 100px;
+}
+
+.profileContainer {
+    display: inline-grid;
+    position: absolute;
+    right: 0%;
+    top: 0%;
+    color:white;
+    border: solid white;
+    background-color: skyblue;
+    padding: 25px;
+    width: 40%;
+    margin-top: 100px;
+    margin-right: 10px;
+}

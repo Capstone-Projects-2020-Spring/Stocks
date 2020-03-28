@@ -7,8 +7,9 @@ function login(id) {
        <label>Username</label><br>
        <input type="text" id="username"/><br> 
        <label>Password</label><br>
-       <input type="text" id="password"/><br>
+       <input type="password" id="password"/><br>
        <input class="buttons" type="button" value="Login" onclick="login.loginSubmit()"/>
+       <input class="buttons" type="button" value="Reset" onclick="login.reset()"/>
        <div id="errMessage"></div>
         </div>
     </div>
@@ -17,25 +18,35 @@ function login(id) {
     document.getElementById(id).innerHTML = content;
 }
 
-
-
-
 function onResponse(response) {
     var u = document.getElementById("errMessage");
     if (response.status === 204) {
         // open page, will later take to loginSuccess page then auto redirect to profile page
         window.open("#/loginSuccess", "_self");
         //display login success page briefly then redirect to profile page
-        setTimeout("window.location.replace('#/profile')", 5000);
+        setTimeout("window.location.replace('#/profile')", 1500);
     } else {
         // display error
         u.innerHTML = "Invalid username or password.";
     }
 }
 
+login.reset = function() {
+    window.open("#/resetPassword", "_self");
+}
+
 login.loginSubmit = function(){
-    var username = document.getElementById('username');
-    var password = document.getElementById('password');
+    //var username = document.getElementById('username').value;
+    //var password = document.getElementById('password').value;
+    //auth.signInWithEmailAndPassword(username, password).then(cred => {
+    //    console.log(cred.user);
+
+    //    const modal = document.querySelector('#modal-login');
+    //    M.Modal.getInstance(modal).close();
+    //});
+
+
+
     if (document.getElementById('username').value === 'admin' && document.getElementById('password').value === 'admin') {
         console.log("success login");
         onResponse({ status: 204 });
