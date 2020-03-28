@@ -15,3 +15,25 @@
     left: 15%;
     top: 25%;
 }
+
+#contactForm{
+    background-color: skyblue;
+    border-radius: 25px;
+    border: solid white;
+    width: 400px;
+    height: 400px;
+    position: absolute;
+    top: 30%;
+    left: 35%;
+}
+
+#contactFormcontent{
+    padding: 20px;
+    position: relative;
+    left: 15%;
+    top: -5%;
+}
+
+#contactParagraph{
+    padding: 10px;
+}

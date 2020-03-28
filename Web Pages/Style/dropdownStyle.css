@@ -1,9 +1,9 @@
-.dropdownAccount{
+.dropdownAccountLinks{
     display: none;
 }
 
 
-#accountDropdown:hover .dropdownAccount{
+#accountDropdown:hover .dropdownAccountLinks{
     display: block;
     position: absolute;
     background-color: skyblue;
@@ -13,7 +13,29 @@
     border: 2px solid white;
 }
 
-.dropdownAccount a{
+.dropdownAccountLinks a{
+    color: white;
+    display: block;
+    font-size: 16px;
+}
+
+.dropdownHelpLinks{
+    display: none;
+}
+
+
+#helpDropdown:hover .dropdownHelpLinks{
+    display: block;
+    position: absolute;
+    background-color: skyblue;
+    padding:10px;
+    border-radius: 20px;
+    margin-top: 0px;
+    border: 2px solid white;
+    right: 20%;
+}
+
+.dropdownHelpLinks a{
     color: white;
     display: block;
     font-size: 16px;

@@ -27,8 +27,8 @@
                 </div>
 
                 <div id="accountDropdown" class="dropdown">
-                    <img class="accountImg" title="Account" src="Images/navBar/account.png"  alt="Account">
-                    <div class="dropdownAccount">
+                    <img class="accountImg" src="Images/navBar/account.png"  alt="Account">
+                    <div class="dropdownAccountLinks">
                         <a href="#/login">Login</a>
                         <a>Profile</a>
                         <a href="#/register">Register</a>
@@ -45,8 +45,12 @@
                     <img title="trending" src="Images/navBar/trending.png" alt="Trending">
                 </div>
                 <!--temporary-->
-                <div class="dropdown">
-                    <a href="#/helpPage"><img title="Help Page" src="Images/navBar/help.png" alt="Help Page"></a>
+                <div id="helpDropdown" class="dropdown">
+                    <img src="Images/navBar/help.png" alt="Help Page">
+                    <div class="dropdownHelpLinks">
+                    <a href="#/helpPage">FAQs</a>
+                    <a href="#/contactPage">Contact Us</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -64,6 +68,7 @@
         <script src="js/components/searchStocks.js"></script>
         <script src="js/components/helpPage.js"></script>
         <script src="js/components/filter.js"></script>
+        <script src="js/components/contactPage.js"></script>
 
         <!-- The core Firebase JS SDK is always required and must be listed first -->
         <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-app.js"></script>
@@ -109,6 +114,7 @@
             myRoutes['/searchStocks'] = searchStocks;
             myRoutes['/helpPage'] = helpPage;
             myRoutes['/register'] = register;
+            myRoutes['/contactPage'] = contactPage;
 
 
             // routeFw returns a routing object that has private and public 
