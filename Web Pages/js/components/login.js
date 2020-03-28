@@ -1,20 +1,24 @@
 function login(id) {
 
     var content = `
-    <div id="loginContainer">
-        <div id="loginPrompt">
-            Login
-        
-       </br> Username <input type="text" id="username"/>
-       </br> Password <input type="text" id="password"/></br>
-               <input type="button" value="Login" onclick="login.loginSubmit()"/>
-        <div id="errMessage"></div>
-               <div id="loginPage"></div> 
+    <div id="registerForm">
+       <div id="formContent">
+       <label>Login</label>
+       <label>Username</label><br>
+       <input type="text" id="username"/><br> 
+       <label>Password</label><br>
+       <input type="text" id="password"/><br>
+       <input class="buttons" type="button" value="Login" onclick="login.loginSubmit()"/>
+       <div id="errMessage"></div>
+        </div>
     </div>
-    
     `;
+
     document.getElementById(id).innerHTML = content;
 }
+
+
+
 
 function onResponse(response) {
     var u = document.getElementById("errMessage");
