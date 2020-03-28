@@ -3,7 +3,7 @@ function register(id) {
 
     var content = `
     <div id="registerForm">
-    
+        <h1 style="text-align: center;">Create New Account!</h1>
         <form id="formContent">
             <label for="email">Email</label><br>
             <input type="text" name="email" id="regEmail"><br>

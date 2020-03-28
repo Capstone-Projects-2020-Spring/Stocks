@@ -2,8 +2,8 @@ function login(id) {
 
     var content = `
     <div id="registerForm">
+        <h1 style="text-align: center;">Login!</h1>
        <div id="formContent">
-       <label>Login</label>
        <label>Username</label><br>
        <input type="text" id="username"/><br> 
        <label>Password</label><br>
