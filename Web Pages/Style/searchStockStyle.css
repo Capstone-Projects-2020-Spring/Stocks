@@ -1,0 +1,21 @@
+#searchContainer{
+    width: auto;
+    height: auto;
+    background-color: skyblue;
+    border-radius: 25px;
+    border: solid white;
+    position: absolute;
+    top: 30%;
+    left: 20%;
+}
+
+#searchContent{
+    padding: 20px;
+    position: relative;
+    /*left: 15%;*/
+    /*top: 25%;*/
+}
+
+#searchParagraph{
+    padding: 10px;
+}

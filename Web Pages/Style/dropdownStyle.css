@@ -1,0 +1,20 @@
+.dropdownAccount{
+    display: none;
+}
+
+
+#accountDropdown:hover .dropdownAccount{
+    display: block;
+    position: absolute;
+    background-color: skyblue;
+    padding:10px;
+    border-radius: 20px;
+    margin-top: 0px;
+    border: 2px solid white;
+}
+
+.dropdownAccount a{
+    color: white;
+    display: block;
+    font-size: 16px;
+}
