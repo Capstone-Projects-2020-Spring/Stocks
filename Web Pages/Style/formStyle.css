@@ -9,6 +9,17 @@
     left: 35%;
 }
 
+#loginForm{
+    background-color: skyblue;
+    border-radius: 25px;
+    border: solid white;
+    width: 300px;
+    height: 250px;
+    position: absolute;
+    top: 30%;
+    left: 35%;
+}
+
 #formContent{
     padding: 20px;
     position: relative;
