@@ -31,9 +31,9 @@
                     <img class="accountImg" src="Images/navBar/account.png"  alt="Account">
                     <div class="dropdownAccountLinks">
                         <a href="#/login">Login</a>
-                        <a>Profile</a>
+                        <a href="#/profile">Profile</a>
                         <a href="#/register">Register</a>
-                        <a>Logout</a>
+                        <a href="#/logout">Logout</a>
                     </div>
                 </div>
 
@@ -73,12 +73,14 @@
         <script src="js/components/helpPage.js"></script>
         <script src="js/components/filter.js"></script>
         <script src="js/components/contactPage.js"></script>
+        <script src="js/components/logout.js"></script>
 
         <!-- The core Firebase JS SDK is always required and must be listed first -->
         <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-auth.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-firestore.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-storage.js"></script>
 
         <!-- TODO: Add SDKs for Firebase products that you want to use
              https://firebase.google.com/docs/web/setup#available-libraries -->
@@ -98,7 +100,9 @@
             // Initialize Firebase
             firebase.initializeApp(firebaseConfig);
             const auth = firebase.auth();
-            const tikrDatabase = firebase.firestore();
+            const storage = firebase.storage();
+
+            // const tikrDatabase = firebase.firestore();
 
             //firestore settings
             tikrDatabase.settings({ timestampInSnapshots: true});
@@ -114,8 +118,9 @@
             myRoutes['/'] = home;  
             myRoutes['/home'] = home;
             myRoutes['/login'] = login;
+            myRoutes['/logout'] = logout;
             myRoutes['/loginSuccess'] = loginSuccess;
-            myRoutes['/profile'] = myProfile;
+            myRoutes['/profile'] = profile;
             myRoutes['/resetPassword'] = reset;
             myRoutes['/resetSuccess'] = resetSuccess;
             myRoutes['/searchStocks'] = searchStocks;

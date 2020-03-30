@@ -1,13 +1,10 @@
 function searchStocks(id){
-    
+
     var content = `
-
 <div id="searchContainer">
-
     <div id="searchParagraph">
         Welcome to the stock search page, here you can look up a stock by its ticker symbol. (Example: for Apple Inc. use AAPL)
     </div>
-
     <div id="searchContent">
     <label>Stock Symbol:</label><br> 
     <input type="text" id="searchTicker"/><br>     

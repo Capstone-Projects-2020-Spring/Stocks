@@ -5,7 +5,7 @@
 .profileContainer {
     display: inline-grid;
     position: absolute;
-    right: 0%;
+    left: 30%;
     top: 0%;
     color:white;
     border: solid white;

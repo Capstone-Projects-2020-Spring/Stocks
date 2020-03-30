@@ -1,6 +1,8 @@
-function myProfile(id) {
+function profile(id) {
 
-    var content = `
+    auth.onAuthStateChanged(user => {
+        if(user){
+            var content = `
     <div class="profileContainer">
         <div class="Profile">
             Welcome user, Admin.             
@@ -8,7 +10,22 @@ function myProfile(id) {
             Your total funds for this session are: 
             <div class="funds">10000</div>
     </div>
+    </div>
+    `;
+            document.getElementById(id).innerHTML = content;
+        } else{
+            var content = `
+    <div class="profileContainer">
+        <div class="Profile"> You are logged out!</div>
+    </div>
 
     `;
-    document.getElementById(id).innerHTML = content;
+            document.getElementById(id).innerHTML = content;
+        }
+    })
+
+    // document.getElementById(id).innerHTML = content;
+
+
+
 }

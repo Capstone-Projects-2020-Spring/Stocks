@@ -8,7 +8,7 @@ function register(id) {
             <label for="email">Email</label><br>
             <input type="text" name="email" id="regEmail"><br>
             <label for="password">Password</label><br>
-            <input type="text" name="password" id="regPassword"><br>
+            <input type="password" name="password" id="regPassword"><br>
             <button class="buttons" id="regButton">Register</button>
         </form>
     
@@ -26,9 +26,9 @@ function register(id) {
         auth.createUserWithEmailAndPassword(email, password).then(cred=>{
             console.log(cred)
             registerForm.reset();
-        })
+        });
 
-    })
+    });
 
     // const userId = document.getElementById('userId');
     // const firstName = document.getElementById('firstName');
