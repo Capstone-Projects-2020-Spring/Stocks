@@ -3,9 +3,16 @@
         <title id="title">TIKR</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="./Style/styleSheet.css">
-        <link rel="stylesheet" href="./Style/helpPageStyle.css">
-        <link rel="stylesheet" href="./Style/searchStyle.css">
+        <link rel="stylesheet" href="Style/styleSheet.css">
+        <link rel="stylesheet" href="Style/helpPageStyle.css">
+        <link rel="stylesheet" href="Style/searchStyle.css">
+        <link rel="stylesheet" href="Style/profile.css">
+        <link rel="stylesheet" href="Style/dropdownStyle.css">
+        <link rel="stylesheet" href="Style/helpPageCardStyle.css">
+        <link rel="stylesheet" href="Style/formStyle.css">
+        <link rel="stylesheet" href="Style/buttonsStyle.css">
+        <link rel="stylesheet" href="Style/searchStockStyle.css">
+
     </head>
     <body>
         <!--HTML page that controls everything that is displayed when user visits the website-->
@@ -17,20 +24,34 @@
             <div id="nav" style="white-space: nowrap; display: inline-block;">
 
                 <div class="dropdown">
-                    <a href = "#/home"><img title="Home" src="./Images/navBar/home.png" alt="Home"></a>
+                    <a href = "#/home"><img title="Home" src="Images/navBar/home.png" alt="Home"></a>
                 </div>
 
-                <div class="dropdown">
-                    <img class="dropHeader" title="Account" src="./Images/navBar/account.png" alt="Account">
+                <div id="accountDropdown" class="dropdown">
+                    <img class="accountImg" src="Images/navBar/account.png"  alt="Account">
+                    <div class="dropdownAccountLinks">
+                        <a href="#/login">Login</a>
+                        <a href="#/profile">Profile</a>
+                        <a href="#/register">Register</a>
+                        <a href="#/logout">Logout</a>
+                    </div>
                 </div>
 
 
                 <div class="dropdown">
-                    <a href = "#/searchStocks"><img title="Search" src="./Images/navBar/search.png" alt="Search"></a>
+                    <a href = "#/searchStocks"><img title="Search" src="Images/navBar/search.png" alt="Search"></a>
                 </div>
-
+                <!--temporary-->
                 <div class="dropdown">
-                    <a href="#/helpPage"><img title="Help Page" src="./Images/navBar/help.png" alt="Help Page"></a>
+                    <img title="trending" src="Images/navBar/trending.png" alt="Trending">
+                </div>
+                <!--temporary-->
+                <div id="helpDropdown" class="dropdown">
+                    <img src="Images/navBar/help.png" alt="Help Page">
+                    <div class="dropdownHelpLinks">
+                    <a href="#/helpPage">FAQs</a>
+                    <a href="#/contactPage">Contact Us</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -40,20 +61,73 @@
         </div>
 
         <script src="js/routeFw.js"></script>
-        
+
+
         <script src="js/components/home.js"></script>
+        <script src="js/components/login.js"></script>
+        <script src="js/components/loginSuccess.js"></script>
+        <script src="js/components/profile.js"></script>
+        <script src="js/components/resetPassword.js"></script>
+        <script src="js/components/resetSuccess.js"></script>
         <script src="js/components/searchStocks.js"></script>
         <script src="js/components/helpPage.js"></script>
         <script src="js/components/filter.js"></script>
+        <script src="js/components/contactPage.js"></script>
+        <script src="js/components/logout.js"></script>
+
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-storage.js"></script>
+
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+             https://firebase.google.com/docs/web/setup#available-libraries -->
+
+        <script>
+            // Your web app's Firebase configuration
+            var firebaseConfig = {
+                apiKey: "AIzaSyBZofTJZnMawzKQC86hbT_jvTZSsONwiA0",
+                authDomain: "tikrdata.firebaseapp.com",
+                databaseURL: "https://tikrdata.firebaseio.com",
+                projectId: "tikrdata",
+                storageBucket: "tikrdata.appspot.com",
+                messagingSenderId: "454494872069",
+                appId: "1:454494872069:web:03d81214c999f4d385f26c"
+            };
+
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            const auth = firebase.auth();
+            const storage = firebase.storage();
+
+            // const tikrDatabase = firebase.firestore();
+
+            //firestore settings
+            tikrDatabase.settings({ timestampInSnapshots: true});
+        </script>
+        <script src="js/components/register.js"></script>
+
+
+
 
         <script>
             var myRoutes = [];
 
             myRoutes['/'] = home;  
             myRoutes['/home'] = home;
+            myRoutes['/login'] = login;
+            myRoutes['/logout'] = logout;
+            myRoutes['/loginSuccess'] = loginSuccess;
+            myRoutes['/profile'] = profile;
+            myRoutes['/resetPassword'] = reset;
+            myRoutes['/resetSuccess'] = resetSuccess;
             myRoutes['/searchStocks'] = searchStocks;
             myRoutes['/helpPage'] = helpPage;
-            
+            myRoutes['/register'] = register;
+            myRoutes['/contactPage'] = contactPage;
+
 
             // routeFw returns a routing object that has private and public 
             // data members and methods. 
@@ -68,6 +142,8 @@
             myRouteFw.printRoutes();
 
         </script>
+
+
 
     </body>
 </html>
