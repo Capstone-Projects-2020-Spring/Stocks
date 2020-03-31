@@ -19,6 +19,15 @@ alpha_key = 'YNY88LER76HPO0G3'
 #                'MS','MSFT','NEE','NFLX','NKE','NVDA','ORCL','OXY','PEP','PFE','PG','PM','PYPL','QCOM','RTN','SBUX','SLB',
 #                'SO','SPG','T','TGT','TMO','TXN','UNH','UNP','UPS','USB','UTX','V','VZ','WBA','WFC','WMT','XOM']
 
+def convert_csv_to_tickers():
+    df = pd.read_csv('nasdaqlisted.txt', sep='|')['Symbol']
+    array = np.array(df.values)
+    array = np.delete(array, len(array) - 1)
+    f = open("NASDAQ.txt", "w")
+    for a in array:
+        f.write(a + ',')
+    f.close()
+
 def set_stock_list():
     arr = []
     with open("NASDAQ.txt", "r") as filestream:
