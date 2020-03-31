@@ -68,10 +68,7 @@ var content = `
 
 </div>
 
-
-
-
-        `;
+ `;
 
         document.getElementById(id).innerHTML = content;
 }
