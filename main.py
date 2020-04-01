@@ -11,7 +11,7 @@ from pprint import pprint
 alpha_key = 'YNY88LER76HPO0G3'
 
 # list of stocks to retrieve
-stock_list = ['MSFT', 'AAPL', 'AMD', 'FB', 'SHOP', 'ROKU', 'ENPH', 'LYFT']
+stock_list = ['CTSH']
 
 
 def retrieve(stock_list):
@@ -44,7 +44,7 @@ def retrieve(stock_list):
 
 
 def convert_csv(data, stock):
-    data.to_csv('../StockCSV/' + stock + '.csv')
+    data.to_csv('../Stocks/StockCSV/' + stock + '.csv')
 
 
 def main():
