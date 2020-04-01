@@ -23,14 +23,14 @@ def convert_csv_to_tickers():
     df = pd.read_csv('nasdaqlisted.txt', sep='|')['Symbol']
     array = np.array(df.values)
     array = np.delete(array, len(array) - 1)
-    f = open("NASDAQ.txt", "w")
+    f = open("NASDAQ1.txt", "w")
     for a in array:
         f.write(a + ',')
     f.close()
 
 def set_stock_list():
     arr = []
-    with open("NASDAQ.txt", "r") as filestream:
+    with open("NASDAQ1.txt", "r") as filestream:
         for line in filestream:
             currentline = line.split(',')
             arr.append(currentline)
