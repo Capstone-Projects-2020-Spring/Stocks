@@ -37,7 +37,21 @@ function contactPage(id){
                     question : question,
                     email: userEmail
                 });
+
+                // var content = `
+                // <div id="contactForm">
+                // <div id="contactParagraph">
+                //
+                // <h1>Your Question has been sent to a member of the TIKR team, please allow 48 hours for response. Thank you</h1>
+                //
+                // </div>
+                // </div>
+                // `;
+                const questionSent = document.getElementById('contactParagraph').innerHTML="Your Question has been sent to a member of the TIKR team, please allow 48 hours for a response. Thank you";
                 contactMessage.reset();
+
+
+
             });
 
         } else{
