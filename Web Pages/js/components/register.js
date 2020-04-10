@@ -9,6 +9,13 @@ function register(id) {
             <input type="text" name="email" id="regEmail"><br>
             <label for="password">Password</label><br>
             <input type="password" name="password" id="regPassword"><br>
+            
+            <div class=""input-Field">
+                <label for="signup-Display">Display Name:</label><br>
+                <input type="text" id="signup-Display" required/>
+            </div>
+            
+            
             <button class="buttons" id="regButton">Register</button>
         </form>
     
@@ -23,8 +30,13 @@ function register(id) {
         const email = registerForm['regEmail'].value;
         const password = registerForm['regPassword'].value;
 
-        auth.createUserWithEmailAndPassword(email, password).then(cred=>{
-            console.log(cred)
+        auth.createUserWithEmailAndPassword(email, password).then(cred => {
+            return tikrDatabase.collection('users').doc(cred.user.uid).set({
+                displayName: registerForm['signup-Display'].value,
+                funds: 5000,
+                stockList: ""
+            });
+        }).then(() => {
             registerForm.reset();
         });
 

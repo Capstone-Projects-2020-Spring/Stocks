@@ -2,16 +2,14 @@
     margin-top: 100px;
 }
 
-.profileContainer {
-    display: inline-grid;
-    position: absolute;
-    left: 30%;
-    top: 0%;
-    color:white;
-    border: solid white;
+#profileContent{
     background-color: skyblue;
-    padding: 25px;
-    width: 40%;
-    margin-top: 100px;
-    margin-right: 10px;
+    border-radius: 25px;
+    border: solid white;
+    width: 500px;
+    height: 400px;
+    position: absolute;
+    top: 30%;
+    left: 35%;
+    text-align: center;
 }

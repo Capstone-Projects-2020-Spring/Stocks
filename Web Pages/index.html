@@ -64,7 +64,6 @@
 
         <script src="js/components/home.js"></script>
         <script src="js/components/login.js"></script>
-        <script src="js/components/loginSuccess.js"></script>
         <script src="js/components/profile.js"></script>
         <script src="js/components/resetPassword.js"></script>
         <script src="js/components/resetSuccess.js"></script>
@@ -101,10 +100,10 @@
             const auth = firebase.auth();
             const storage = firebase.storage();
             const database = firebase.database();
-            // const tikrDatabase = firebase.firestore();
+            const tikrDatabase = firebase.firestore();
 
             //firestore settings
-            tikrDatabase.settings({ timestampInSnapshots: true});
+            tikrDatabase.settings({ timestampsInSnapshots: true});
         </script>
         <script src="js/components/register.js"></script>
         <script src="js/components/loggedInState.js"></script>
@@ -116,7 +115,6 @@
             myRoutes['/home'] = home;
             myRoutes['/login'] = login;
             myRoutes['/logout'] = logout;
-            myRoutes['/loginSuccess'] = loginSuccess;
             myRoutes['/profile'] = profile;
             myRoutes['/resetPassword'] = reset;
             myRoutes['/resetSuccess'] = resetSuccess;
