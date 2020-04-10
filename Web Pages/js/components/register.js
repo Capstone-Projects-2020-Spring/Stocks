@@ -34,7 +34,7 @@ function register(id) {
             return tikrDatabase.collection('users').doc(cred.user.uid).set({
                 displayName: registerForm['signup-Display'].value,
                 funds: 5000,
-                stockList: ""
+                stockList: []
             });
         }).then(() => {
             registerForm.reset();
