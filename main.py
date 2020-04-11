@@ -30,7 +30,7 @@ def convert_csv_to_tickers():
 
 def set_stock_list():
     arr = []
-    with open("NASDAQ1.txt", "r") as filestream:
+    with open("NASDAQ.txt", "r") as filestream:
         for line in filestream:
             currentline = line.split(',')
             arr.append(currentline)
@@ -87,4 +87,7 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except:
+        print('no file')
