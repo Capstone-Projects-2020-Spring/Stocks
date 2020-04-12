@@ -42,7 +42,7 @@
                 </div>
                 <!--temporary-->
                 <div class="dropdown">
-                    <img title="trending" src="Images/navBar/trending.png" alt="Trending">
+                      <a href = "#/trendingStocks"><img title="Search" src="Images/navBar/trending.png" alt="Trending"></a>
                 </div>
                 <!--temporary-->
                 <div id="helpDropdown" class="dropdown">
@@ -60,7 +60,7 @@
         </div>
 
         <script src="js/routeFw.js"></script>
-
+		  <script src="js/ajax2.js"></script>
 
         <script src="js/components/home.js"></script>
         <script src="js/components/login.js"></script>
@@ -68,6 +68,7 @@
         <script src="js/components/resetPassword.js"></script>
         <script src="js/components/resetSuccess.js"></script>
         <script src="js/components/searchStocks.js"></script>
+		<script src="js/components/trendingStocks.js"></script>
         <script src="js/components/helpPage.js"></script>
         <script src="js/components/filter.js"></script>
         <script src="js/components/contactPage.js"></script>
@@ -121,6 +122,7 @@
             myRoutes['/resetPassword'] = reset;
             myRoutes['/resetSuccess'] = resetSuccess;
             myRoutes['/searchStocks'] = searchStocks;
+			myRoutes['/trendingStocks'] = trendingStocks;
             myRoutes['/helpPage'] = helpPage;
             myRoutes['/register'] = register;
             myRoutes['/contactPage'] = contactPage;
