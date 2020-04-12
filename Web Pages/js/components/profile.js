@@ -12,7 +12,7 @@ function profile(id) {
                                   You have: $
                                   ${doc.data().funds}
                                   remaining for this session.<br>
-                                  Your saved stocks are:
+                                  Stocks you bought:<br>
                                   ${doc.data().stockList} <br>
                             </div>
                             <br><br>

@@ -9,8 +9,13 @@ function searchStocks(id){
     <input type="text" id="searchTicker"/><br>     
 <!--    <input class="buttons" type="button" value="Submit" onclick="searchStocks.search('searchTicker','stockPage')/>-->
     <button class="buttons" id="searchButton">Search</button>
+    
+  
     <div id="stockPage"></div> 
-    <img id="searchedStock" src="">
+    <img style="padding-bottom: 10px" id="searchedStock" src="">
+    <img style="padding-bottom: 10px" id="searchedStockMA" src=""><br>
+    <div id="howManyShares" style="display: none">How many shares would you like to buy?<input id="numShares" type="number"></input></div><br>
+    <button class="buttons" id="buyButton" style="display: none">Buy</button>
     </form>
     
     
@@ -20,12 +25,68 @@ function searchStocks(id){
 
     var storageRef = storage.ref();
     var imagesRef = storageRef.child('stocks');
+    var imageMvAvg = storageRef.child('movingAverageStocks');
 
     const searchForm = document.querySelector('#searchContent');
+    var numBuyStocks = document.querySelector("#numShares");
+    const sharesQuestion = document.querySelector("#howManyShares");
+
+
+
     searchForm.addEventListener('submit', (e) =>{
+        //Buying Stocks
+        var buyButton = document.getElementById('buyButton');
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                buyButton.style.display = "inline";
+                sharesQuestion.style.display = "inline";
+
+
+                buyButton.addEventListener('click', (e) => {
+                    const strNumBuyStocks = numBuyStocks.value.toString();
+
+                    var stockListRef = tikrDatabase.collection("users").doc(user.uid);
+                    const stockTicker = searchForm['searchTicker'].value + " " + strNumBuyStocks;
+                    const stockTickerDBstore = stockTicker + " " + strNumBuyStocks;
+                    return tikrDatabase.collection('users').doc(user.uid).update({
+                        stockList: firebase.firestore.FieldValue.arrayUnion(stockTicker),
+                    });
+
+                    /*
+                    return tikrDatabase.collection('stockList').doc(user.uid).set({
+                        
+                    });
+                     */
+                });
+
+
+
+            }
+        });
+        //End Buying Stocks
+
         //prevents page from refreshing when info is submitted
         e.preventDefault();
         const stockTicker = searchForm['searchTicker'].value;
+
+        /*
+        const url = new URL(
+            "https://api.worldtradingdata.com/api/v1/stock"
+        );
+
+        let params = {
+            "symbol": stockTicker,
+            "api_token": "YSYgTzBtwiZyve09eYTrJJKbxqsNazQuBbsIh1F7rYcDjVx4hDKea8hXIm3T",
+        };
+        Object.keys(params)
+            .forEach(key => url.searchParams.append(key, params[key]));
+
+        fetch(url, {
+            method: "GET",
+        })
+            .then(response => response.json())
+            .then(json => console.log(json));
+        */
 
         const searchText = stockTicker + '.png';
         imagesRef.child(searchText).getDownloadURL().then(function(url) {
@@ -34,11 +95,21 @@ function searchStocks(id){
             img.src = url;
         });
 
+        imageMvAvg.child(searchText).getDownloadURL().then(function(url) {
+            // Or inserted into an <img> element:
+            var img2 = document.getElementById('searchedStockMA');
+            img2.src = url;
+        });
+
 
 
 
 
     });
+
+
+
+
 }
 
 /*

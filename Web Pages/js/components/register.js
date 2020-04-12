@@ -36,6 +36,7 @@ function register(id) {
                 funds: 5000,
                 stockList: []
             });
+
         }).then(() => {
             registerForm.reset();
         });
