@@ -10,6 +10,7 @@ function searchStocks(id){
 <!--    <input class="buttons" type="button" value="Submit" onclick="searchStocks.search('searchTicker','stockPage')/>-->
     <button class="buttons" id="searchButton">Search</button>
     <div id="stockPage"></div> 
+    <div id="searchPrice">
     <img id="searchedStock" src="">
     </form>
     
@@ -33,12 +34,38 @@ function searchStocks(id){
             var img = document.getElementById('searchedStock');
             img.src = url;
         });
+        
+        ajax2({
+        url: "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol="+stockTicker+"&apikey=ZLFF9H8CUUTVT9R9",
+        successFn: success,
+        errorId: id
+    });
 
+
+
+    function success(obj) {
+        console.log(obj["Global Quote"]);
+
+        if (!obj) {
+            document.getElementById(id).innerHTML = "Http Request (from AJAX call) did not parse to an object.";
+            return;
+        } else {
+            var price = obj["Global Quote"];
+            price = price["05. price"];
+            console.log(price);
+            price = price.toString();
+            price = parseFloat(price);
+            var msg = "</br>The price of this stock is currently $" + price;
+            searchPrice.innerHTML += msg;
+        }
+    }
 
 
 
 
     });
+    
+    
 }
 
 /*
