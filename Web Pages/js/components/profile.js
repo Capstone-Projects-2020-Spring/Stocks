@@ -9,11 +9,13 @@ function profile(id) {
                             <div id="Welcome">
                               <h1>Welcome,</h1>
                                   ${doc.data().displayName} <br>
-                                  You have: $
-                                  ${doc.data().funds}
-                                  remaining for this session.<br>
+                                  Purchasing Power: $
+                                  ${doc.data().purchasePower}<br>
+                                  Amount Invested: $
+                                  ${doc.data().investing}<br>
                                   Stocks you bought:<br>
                                   ${doc.data().stockList} <br>
+                                  
                             </div>
                             <br><br>
                             Update Profile info: <br>

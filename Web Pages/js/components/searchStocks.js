@@ -15,8 +15,10 @@ function searchStocks(id){
 	<div id="searchPrice"></div>
     <img style="padding-bottom: 10px" id="searchedStock" src="">
     <img style="padding-bottom: 10px" id="searchedStockMA" src=""><br>
-    <div id="howManyShares" style="display: none">How many shares would you like to buy?<input id="numShares" type="number"></input></div><br>
+    <div id="howManyShares" style="display: none">How many shares?<input id="numShares" type="number"></input></div><br>
+<!--    <div id="howManySharesSell" style="display: none">How many shares would you like to sell?<input id="numSharesSell" type="number"></input></div><br>-->
     <button class="buttons" id="buyButton" style="display: none">Buy</button>
+    <button class="buttons" id="sellButton" style="display: none">Sell</button>
     </form>
     
     
@@ -30,34 +32,107 @@ function searchStocks(id){
 
     const searchForm = document.querySelector('#searchContent');
     var numBuyStocks = document.querySelector("#numShares");
-    const sharesQuestion = document.querySelector("#howManyShares");
+    var numSellStocks = document.querySelector("#numSharesSell");
+    var sharesQuestion = document.querySelector("#howManyShares");
+    var sharesQuestion2 = document.querySelector("#howManySharesSell");
+
+    const searchBtn = document.getElementById('searchButton');
 
 
 
-    searchForm.addEventListener('submit', (e) =>{
+    searchBtn.addEventListener('click', (e) =>{
+        const stockTicker = searchForm['searchTicker'].value;
+        const searchBtn = document.getElementById('searchButton');
+
+
+
+
         //Buying Stocks
+        //Add sub collection to each user profile
+        //the name of each doc in the subcolletion will be the stock name
+        //one field in doc --> the number of shares
+
+
+
         var buyButton = document.getElementById('buyButton');
+        var sellButton = document.getElementById('sellButton');
         auth.onAuthStateChanged(user => {
             if (user) {
                 buyButton.style.display = "inline";
+                sellButton.style.display = "inline";
                 sharesQuestion.style.display = "inline";
 
 
                 buyButton.addEventListener('click', (e) => {
+                    e.preventDefault();
                     const strNumBuyStocks = numBuyStocks.value.toString();
 
                     var stockListRef = tikrDatabase.collection("users").doc(user.uid);
-                    const stockTicker = searchForm['searchTicker'].value + " " + strNumBuyStocks;
-                    const stockTickerDBstore = stockTicker + " " + strNumBuyStocks;
-                    return tikrDatabase.collection('users').doc(user.uid).update({
-                        stockList: firebase.firestore.FieldValue.arrayUnion(stockTicker),
-                    });
+                    const stockName = searchForm['searchTicker'].value;
+                    // const stockTicker = searchForm['searchTicker'].value + " " + strNumBuyStocks;
 
                     /*
+                    return tikrDatabase.collection("stocksList").doc(user.uid).set({
+                        stockName:  numBuyStocks.value,
+                    });
+                    */
+                    //Adding to an array in DB
+                    const stockTickerDBstore = stockTicker + " " + strNumBuyStocks;
+                    return tikrDatabase.collection('users').doc(user.uid).collection('stocks').doc(stockName).set({
+                        // stockList: firebase.firestore.FieldValue.arrayUnion(stockName),
+                        shares: numBuyStocks.value
+                    });
+
+
+                                        /*
                     return tikrDatabase.collection('stockList').doc(user.uid).set({
                         
                     });
                      */
+
+                });
+
+
+
+            }
+        });
+
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                buyButton.style.display = "inline";
+                sellButton.style.display = "inline";
+                sharesQuestion.style.display = "inline";
+
+
+                sellButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const strNumBuyStocks = numBuyStocks.value.toString();
+
+                    var stockListRef = tikrDatabase.collection("users").doc(user.uid);
+                    const stockName = searchForm['searchTicker'].value;
+                    const stockTicker = searchForm['searchTicker'].value + " " + strNumBuyStocks;
+
+                    /*
+                    return tikrDatabase.collection("stocksList").doc(user.uid).set({
+                        stockName:  numBuyStocks.value,
+                    });
+                    */
+                    //Adding to an array in DB
+                    const stockTickerDBstore = stockTicker + " " + strNumBuyStocks;
+                    return tikrDatabase.collection('users').doc(user.uid).update({
+                        stockList: firebase.firestore.FieldValue.arrayRemove(stockName),
+                    });
+
+
+
+
+
+                                        /*
+                    return tikrDatabase.collection('stockList').doc(user.uid).set({
+
+                    });
+                     */
+
                 });
 
 
@@ -68,7 +143,7 @@ function searchStocks(id){
 
         //prevents page from refreshing when info is submitted
         e.preventDefault();
-        const stockTicker = searchForm['searchTicker'].value;
+        // const stockTicker = searchForm['searchTicker'].value;
 
         /*
         const url = new URL(
@@ -102,30 +177,33 @@ function searchStocks(id){
             img2.src = url;
         });
 
-		ajax2({
-        url: "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol="+stockTicker+"&apikey=ZLFF9H8CUUTVT9R9",
-        successFn: success,
-        errorId: id
-    });
 
+        ajax2({
+            url: "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol="+stockTicker+"&apikey=ZLFF9H8CUUTVT9R9",
+            successFn: success,
+            errorId: id
+        });
 
+        function success(obj) {
+            console.log(obj["Global Quote"]);
 
-    function success(obj) {
-        console.log(obj["Global Quote"]);
-
-        if (!obj) {
-            document.getElementById(id).innerHTML = "Http Request (from AJAX call) did not parse to an object.";
-            return;
-        } else {
-            var price = obj["Global Quote"];
-            price = price["05. price"];
-            console.log(price);
-            price = price.toString();
-            price = parseFloat(price);
-            var msg = "</br>The price of this stock is currently $" + price;
-            searchPrice.innerHTML += msg;
+            if (!obj) {
+                document.getElementById(id).innerHTML = "Http Request (from AJAX call) did not parse to an object.";
+                return;
+            } else {
+                var price = obj["Global Quote"];
+                price = price["05. price"];
+                console.log(price);
+                price = price.toString();
+                price = parseFloat(price);
+                var msg = "</br>The price of " + stockTicker + " is currently $" + price;
+                searchPrice.innerHTML += msg;
+            }
         }
-    }
+
+
+
+
 
 
 

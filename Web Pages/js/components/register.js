@@ -33,7 +33,8 @@ function register(id) {
         auth.createUserWithEmailAndPassword(email, password).then(cred => {
             return tikrDatabase.collection('users').doc(cred.user.uid).set({
                 displayName: registerForm['signup-Display'].value,
-                funds: 5000,
+                purchasePower: 5000,
+                investing: 0,
                 stockList: []
             });
 
