@@ -78,10 +78,13 @@ function searchStocks(id){
                     */
                     //Adding to an array in DB
                     const stockTickerDBstore = stockTicker + " " + strNumBuyStocks;
-                    return tikrDatabase.collection('users').doc(user.uid).collection('stocks').doc(stockName).set({
-                        // stockList: firebase.firestore.FieldValue.arrayUnion(stockName),
-                        shares: numBuyStocks.value
+                    return tikrDatabase.collection('users').doc(user.uid).collection('stocks').doc(stockName).update({
+                        shares: numBuyStocks.value,
                     });
+
+                    // return tikrDatabase.collection('users').doc(user.uid).update({
+                    //     stockList: firebase.firestore.FieldValue.arrayUnion(stockName),
+                    // });
 
 
                                         /*
