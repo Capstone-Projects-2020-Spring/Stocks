@@ -7,8 +7,9 @@ function home(id) {
     
     <div id="homeDescription">
         Always losing money in the markets? Well you have you have come the right place. With TIKR you will able to get insight into the
-        future movements of stocks in the market. This application will allow you to get real time predictions about where the market is 
-        headed and if you should sell or hold your positions. Don't take it from us, try if for yourself. 
+        future movements of stocks in the market. With an astonishing overall 68% accuracy rate for next day predictions, this application will allow 
+        you to get an idea of where the market is headed and if you should sell or hold your positions. Don't take it from us, try if for 
+        yourself.
     </div>
     </div>
 <!--<div id="homeIntro">

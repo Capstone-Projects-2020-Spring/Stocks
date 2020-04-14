@@ -11,10 +11,12 @@
         <link rel="stylesheet" href="Style/formStyle.css">
         <link rel="stylesheet" href="Style/buttonsStyle.css">
         <link rel="stylesheet" href="Style/searchStockStyle.css">
+        <link rel="stylesheet" href="Style/correlationTableStyle.css">
 
     </head>
     <body>
         <!--HTML page that controls everything that is displayed when user visits the website-->
+
         <div id="titleNav">
             <div id="titlePage">
                 TIKR
@@ -43,6 +45,9 @@
                 <!--temporary-->
                 <div class="dropdown">
                       <a href = "#/trendingStocks"><img title="Search" src="Images/navBar/trending.png" alt="Trending"></a>
+                </div>
+                <div class="dropdown">
+                      <a href = "#/Correlations"><img title="Correlation" src="Images/navBar/correlation.png" alt="Correlation"></a>
                 </div>
                 <!--temporary-->
                 <div id="helpDropdown" class="dropdown">
@@ -73,6 +78,7 @@
         <script src="js/components/filter.js"></script>
         <script src="js/components/contactPage.js"></script>
         <script src="js/components/logout.js"></script>
+        <script src="js/components/Correlations.js"></script>
 
         <!-- The core Firebase JS SDK is always required and must be listed first -->
         <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-app.js"></script>
@@ -126,6 +132,7 @@
             myRoutes['/helpPage'] = helpPage;
             myRoutes['/register'] = register;
             myRoutes['/contactPage'] = contactPage;
+            myRoutes['/Correlations'] = Correlations;
 
 
             // routeFw returns a routing object that has private and public 

@@ -13,9 +13,10 @@ function searchStocks(id){
   
     <div id="stockPage"></div> 
 	<div id="searchPrice"></div>
-    <img style="padding-bottom: 10px" id="searchedStock" src="">
+    <img style="padding-bottom: 10px" id="1DaySearchedStock" src="">
+    <img style="padding-bottom: 10px" id="nDaySearchedStock" src="">
     <img style="padding-bottom: 10px" id="searchedStockMA" src=""><br>
-    <div id="howManyShares" style="display: none">How many shares?<input id="numShares" type="number"></input></div><br>
+    <div id="howManyShares" style="display: none">How many shares?<input id="numShares" type="text"></div><br>
 <!--    <div id="howManySharesSell" style="display: none">How many shares would you like to sell?<input id="numSharesSell" type="number"></input></div><br>-->
     <button class="buttons" id="buyButton" style="display: none">Buy</button>
     <button class="buttons" id="sellButton" style="display: none">Sell</button>
@@ -29,9 +30,15 @@ function searchStocks(id){
     var storageRef = storage.ref();
     var imagesRef = storageRef.child('stocks');
     var imageMvAvg = storageRef.child('movingAverageStocks');
+    var imageOneDay = storageRef.child('1DayPredictions');
+    var imageNDays = storageRef.child('nDays');
+
 
     const searchForm = document.querySelector('#searchContent');
-    var numBuyStocks = document.querySelector("#numShares");
+    // var BuyStocks = document.querySelector("#numShares");
+
+
+
     var numSellStocks = document.querySelector("#numSharesSell");
     var sharesQuestion = document.querySelector("#howManyShares");
     var sharesQuestion2 = document.querySelector("#howManySharesSell");
@@ -64,8 +71,12 @@ function searchStocks(id){
 
 
                 buyButton.addEventListener('click', (e) => {
+                    var nBuyStocks = searchForm['numShares'].value;
+                    const numBuyStocks = parseInt(nBuyStocks);
                     e.preventDefault();
-                    const strNumBuyStocks = numBuyStocks.value.toString();
+                    console.log(nBuyStocks);
+                    const strNumBuyStocks = numBuyStocks.toString();
+
 
                     var stockListRef = tikrDatabase.collection("users").doc(user.uid);
                     const stockName = searchForm['searchTicker'].value;
@@ -77,14 +88,15 @@ function searchStocks(id){
                     });
                     */
                     //Adding to an array in DB
-                    const stockTickerDBstore = stockTicker + " " + strNumBuyStocks;
-                    return tikrDatabase.collection('users').doc(user.uid).collection('stocks').doc(stockName).update({
-                        shares: numBuyStocks.value,
-                    });
 
-                    // return tikrDatabase.collection('users').doc(user.uid).update({
-                    //     stockList: firebase.firestore.FieldValue.arrayUnion(stockName),
+                    const stockTickerDBstore = stockTicker + " " + strNumBuyStocks;
+                    // return tikrDatabase.collection('users').doc(user.uid).collection('stocks').doc(stockName).update({
+                    //     shares: numBuyStocks,
                     // });
+
+                    return tikrDatabase.collection('users').doc(user.uid).update({
+                        stockList: firebase.firestore.FieldValue.arrayUnion(stockName),
+                    });
 
 
                                         /*
@@ -168,17 +180,45 @@ function searchStocks(id){
         */
 
         const searchText = stockTicker + '.png';
-        imagesRef.child(searchText).getDownloadURL().then(function(url) {
+        imageOneDay.child(searchText).getDownloadURL().then(function(url) {
             // Or inserted into an <img> element:
-            var img = document.getElementById('searchedStock');
-            img.src = url;
+            var img = document.getElementById('1DaySearchedStock');
+                img.src = url;
+
+        }).catch(function (error){
+            switch (error.code) {
+                case 'storage/object-not-found':
+                    var img = document.getElementById('1DaySearchedStock');
+                    img.src = "";
+          }
         });
 
         imageMvAvg.child(searchText).getDownloadURL().then(function(url) {
             // Or inserted into an <img> element:
+            // if
             var img2 = document.getElementById('searchedStockMA');
-            img2.src = url;
+                img2.src = url;
+        }).catch(function (error){
+            switch (error.code) {
+                case 'storage/object-not-found':
+                    var img2 = document.getElementById('searchedStockMA');
+                    img2.src = "";
+            }
         });
+
+        imageNDays.child(searchText).getDownloadURL().then(function(url) {
+            // Or inserted into an <img> element:
+            // if
+            var img3 = document.getElementById('nDaySearchedStock');
+                img3.src = url;
+        }).catch(function (error){
+            switch (error.code) {
+                case 'storage/object-not-found':
+                    var img3 = document.getElementById('nDaySearchedStock');
+                    img3.src = "";
+            }
+        });
+
 
 
         ajax2({
