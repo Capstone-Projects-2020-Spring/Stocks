@@ -1,9 +1,11 @@
 //learned user registration from https://www.youtube.com/watch?v=wkdCpktUfGg --> will modify to fit webstie
+
+//issue --> No alert if registering with an email that already exists
 function register(id) {
 
     var content = `
     <div id="registerForm">
-        <h1 style="text-align: center;">Create New Account!</h1>
+        <h1 style="text-align: center;" id="regHeading">Create New Account!</h1>
         <form id="formContent">
             <label for="email">Email</label><br>
             <input type="text" name="email" id="regEmail"><br>
@@ -24,46 +26,57 @@ function register(id) {
     document.getElementById(id).innerHTML = content;
 
     const registerForm = document.querySelector('#formContent');
-    registerForm.addEventListener('submit', (e) =>{
+    const formContentRef = document.getElementById('formContent');
+    const heading = document.getElementById('regHeading');
+    registerForm.addEventListener('submit', (e) => {
         //prevents page from refreshing when info is submitted
         e.preventDefault();
         const email = registerForm['regEmail'].value;
         const password = registerForm['regPassword'].value;
 
         auth.createUserWithEmailAndPassword(email, password).then(cred => {
+            formContentRef.style.display = 'none';
+            heading.innerHTML = "Thank you for registering an account with TIKR. Please visit our FAQ page to get started.";
             return tikrDatabase.collection('users').doc(cred.user.uid).set({
                 displayName: registerForm['signup-Display'].value,
                 purchasePower: 5000,
                 investing: 0,
-                stockList: []
             });
+        }, function(error) {
+            var errorCode = error.code;
+            if (errorCode == 'auth/email-already-in-use') {
+                alert("Account with this email has already been created. Please login or use a different email.");
+                registerForm.reset();
+                console.log(errorCode);
+            }
+            /*.then(() => {
+                formContentRef.style.display = 'none';
+                heading.innerHTML = "Thank you for registering an account with TIKR. Please visit our FAQ page to get started.";
+            });*/
 
-        }).then(() => {
-            registerForm.reset();
         });
 
+        // const userId = document.getElementById('userId');
+        // const firstName = document.getElementById('firstName');
+        // const lastName = document.getElementById('lastName');
+        // const email = document.getElementById('email');
+        // const addBtn = document.getElementById('addBtn');
+        // const updateBtn = document.getElementById('updateBtn');
+        // const removeBtn = document.getElementById('removeBtn');
+        //
+        // const database = firebase.database();
+        //
+        //
+        // addBtn.addEventListener('click', (e)=>{
+        //     e.preventDefault();
+        //     database.ref('/users/' + userId.value).set({
+        //         first_name: firstName.value,
+        //         last_name: lastName.value,
+        //         email: email.value
+        //     });
+        // });
+
     });
-
-    // const userId = document.getElementById('userId');
-    // const firstName = document.getElementById('firstName');
-    // const lastName = document.getElementById('lastName');
-    // const email = document.getElementById('email');
-    // const addBtn = document.getElementById('addBtn');
-    // const updateBtn = document.getElementById('updateBtn');
-    // const removeBtn = document.getElementById('removeBtn');
-    //
-    // const database = firebase.database();
-    //
-    //
-    // addBtn.addEventListener('click', (e)=>{
-    //     e.preventDefault();
-    //     database.ref('/users/' + userId.value).set({
-    //         first_name: firstName.value,
-    //         last_name: lastName.value,
-    //         email: email.value
-    //     });
-    // });
-
 }
 
 

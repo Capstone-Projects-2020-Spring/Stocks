@@ -1,6 +1,8 @@
 function profile(id) {
     auth.onAuthStateChanged(user => {
         //user is signed in
+
+
         if(user) {
             console.log(user)
             tikrDatabase.collection('users').doc(user.uid).get().then(doc => {
@@ -13,13 +15,13 @@ function profile(id) {
                                   ${doc.data().purchasePower}<br>
                                   Amount Invested: $
                                   ${doc.data().investing}<br>
-                                  Stocks you bought:<br>
-                                  ${doc.data().stockList} <br>
+                                  Portfolio:<br>
+                                  <div id="stockListAndNumShares"></div>
                                   
                             </div>
                             <br><br>
                             Update Profile info: <br>
-                            <form id="profileForm">
+                            <form id="profileForm" style="display: none">
                                 <label for="username">Username</label><br>
                                 <input type="text" name="username" id="regUsername"><br>
                                 <label for="email">Email</label><br>
@@ -29,9 +31,27 @@ function profile(id) {
                                 <button class="buttons" id="saveButton">Save</button>
                                 <div id="err"></div>
                             </form>
+                            <button class="buttons" id="showFormButton">Update Profile</button>
                     </div>            
                 `;
                 document.getElementById(id).innerHTML = content;
+                //Get Stocks and Amount Shares
+                var listDisplay = document.getElementById('stockListAndNumShares');
+                const stockSharesRef = tikrDatabase.collection('users').doc(user.uid).collection('stocks');
+
+                stockSharesRef.get().then(function (listData){
+                    listData.forEach(function(doc){
+                        console.log(doc.id, "==>", doc.data());
+                    });
+                });
+                //End Get Stocks and Amount Shares
+
+                var showForm = document.getElementById('profileForm');
+                var showFormButton = document.getElementById('showFormButton');
+                showFormButton.addEventListener('click', (e) =>{
+                   showFormButton.style.display = 'none';
+                   showForm.style.display = 'inline';
+                });
 
                 profileForm.addEventListener('submit', (e) => {
                     e.preventDefault();
@@ -106,6 +126,8 @@ function profile(id) {
                 `;
             document.getElementById(id).innerHTML = content;
         }
+
+
 
 
     });
