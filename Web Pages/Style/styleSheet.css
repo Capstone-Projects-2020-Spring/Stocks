@@ -1,7 +1,8 @@
 
 body {
 
-    background: rgb(0, 0, 0) url("../Images/Background/stockBoard.jpg") repeat;
+    background: rgb(0, 0, 0) url("../Images/Background/stockBoard.jpg") repeat ;
+    background-size: contain;
     background-size: cover;
    }
 

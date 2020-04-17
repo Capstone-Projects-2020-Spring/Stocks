@@ -4964,28 +4964,3 @@ function Correlations(id) {
 
 }
 
-function searchCor() {
-    //used https://www.w3schools.com/howto/howto_js_filter_table.asp to learn filtering tables
-    //Search Filter
-
-
-    var input = document.getElementById("corSearchStock");
-    var table = document.getElementById("corTable");
-    var tr = table.getElementsByTagName("tr");
-
-    for (i = 0; i < tr.length; i++) {
-        var td = tr[i].getElementsByTagName("td")[1];
-        var td2 = tr[i].getElementsByTagName("td")[2];
-        if (td || td2) {
-            var txtValue = td.textContent;
-
-            if (txtValue.toUpperCase().indexOf(input.value) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
-            }
-        }
-    }
-
-    //End Search Filter
-}

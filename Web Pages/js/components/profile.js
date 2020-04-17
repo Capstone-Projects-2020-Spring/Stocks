@@ -99,7 +99,12 @@ function profile(id) {
             //user is not signed in
         }else{
             console.log('user logged out');
-            document.getElementById(id).innerHTML = "You're not logged in!";
+            const content = `
+            <div id="registerForm">
+                <h1 style="text-align: center;">Please login to view your profile. </h1>
+            </div>           
+                `;
+            document.getElementById(id).innerHTML = content;
         }
 
 
