@@ -1,4 +1,5 @@
-//Current issue, the app charges for the first purchase, but does not charge for the second purchase of the same stock
+//Current issue: when user has 0 shares, it displays 0 shares in the profile
+                //round numbers in database
 function searchStocks(id){
     var content = `
 <div id="searchContainer">
@@ -35,7 +36,7 @@ function searchStocks(id){
 
 
     const searchForm = document.querySelector('#searchContent');
-    // var BuyStocks = document.querySelector("#numShares");
+    var BuyStocks = document.getElementById("numShares");
 
 
     var sharesQuestion = document.querySelector("#howManyShares");
@@ -124,6 +125,8 @@ function searchStocks(id){
                                     alert("This purchase can not be processed. The cost of this transaction is $" + cost.toFixed(2) + " for " + numBuyStocks + " shares of " + stockName + ". You only have $" + purchasingPower.toFixed(2));
                                     console.log("message 1");
                                 } else{
+                                    alert("You have purchased " + numBuyStocks + " shares of " + stockTicker);
+                                    BuyStocks.value = "";
                                     newPurchasingPower = purchasingPower - cost;
                                     console.log("New Purchasing Power Amount: "+ newPurchasingPower);
                                     newInvesting = investing + cost;
@@ -159,6 +162,8 @@ function searchStocks(id){
                                     alert("This purchase can not be processed. The cost of this transaction is $" + cost.toFixed(2) + " for " + numBuyStocks + " shares of " + stockName + ". You only have $" + purchasingPower.toFixed(2));
                                     console.log("message 2");
                                 } else{
+                                    alert("You have purchased " + numBuyStocks + " shares of " + stockTicker);
+                                    BuyStocks.value = "";
                                     newPurchasingPower = purchasingPower - cost;
                                     console.log("New Purchasing Power Amount: "+ newPurchasingPower);
                                     newInvesting = investing + cost;
@@ -183,6 +188,7 @@ function searchStocks(id){
 
 
                 var userAccountRef = tikrDatabase.collection('users').doc(user.uid);
+
                 sellButton.addEventListener('click', (e) => {
                     e.preventDefault();
                     var nSellStocks = searchForm['numShares'].value;
@@ -197,18 +203,16 @@ function searchStocks(id){
                             var updateNumShares = stockDB.shares = stockDB.shares - numSellStocks;
                             if(stockDB.shares < 0){
                                 alert("You do not have " + numSellStocks + " share(s) of " + stockTicker + " in your portfolio.");
+                            //else if stmt (shares == 0) --> delete the stock form db
 
-                            }else{
+                            } else{
 
-                                stockSharesRef.update({
-                                    shares: updateNumShares,
-                                });
 
                                 userAccountRef.get().then(function (account){
                                     var accountData = account.data();
                                     console.log(accountData);
-                                    //multiply current stock price by amount of shares bought
-                                    //subtract that from the purchasing power
+                                    //multiply current stock price by amount of shares in portfolio
+                                    //add that to the purchasing power
                                     var purchasingPower = accountData.purchasePower;
                                     var investing = accountData.investing;
 
@@ -218,12 +222,29 @@ function searchStocks(id){
                                     var newInvesting = investing - cost;
                                     if(investing <= 0){
                                         alert("You have no assets to sell");
+                                    }else if(stockDB.shares == 0){
+
+                                        stockSharesRef.delete().then(function () {
+                                            alert("You have sold all shares of " + stockTicker + " Successfully.");
+                                        });
+                                        newPurchasingPower.toFixed(2);
+                                        newInvesting.toFixed(2);
+                                        userAccountRef.update({
+                                            investing: newInvesting,
+                                            purchasePower: newPurchasingPower,
+                                        });
+                                        BuyStocks.value = "";
                                     }else{
                                         newPurchasingPower.toFixed(2);
                                         newInvesting.toFixed(2);
                                         userAccountRef.update({
                                             investing: newInvesting,
                                             purchasePower: newPurchasingPower,
+                                        });
+                                        alert("You have sold " + numSellStocks + " share(s) of " + stockTicker);
+                                        BuyStocks.value = "";
+                                        stockSharesRef.update({
+                                            shares: updateNumShares,
                                         });
                                     }
                                 });

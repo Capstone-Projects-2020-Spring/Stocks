@@ -24,7 +24,7 @@ function login(id) {
 
         auth.signInWithEmailAndPassword(email, password).then(cred=>{
             console.log(cred.user);
-            login.reset();
+            profile(id);
         });
 
     });

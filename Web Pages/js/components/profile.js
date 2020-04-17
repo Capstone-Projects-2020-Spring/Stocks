@@ -12,11 +12,13 @@ function profile(id) {
                               <h1>Welcome,</h1>
                                   ${doc.data().displayName} <br>
                                   Purchasing Power: $
-                                  ${doc.data().purchasePower}<br>
+                                  ${doc.data().purchasePower.toFixed(2)}<br>
                                   Amount Invested: $
-                                  ${doc.data().investing}<br>
+                                  ${doc.data().investing.toFixed(2)}<br>
                                   Portfolio:<br>
-                                  <div id="stockListAndNumShares"></div>
+                                  <div id="stockListAndNumShares">
+                                  
+                                  </div>
                                   
                             </div>
                             <br><br>
@@ -36,12 +38,16 @@ function profile(id) {
                 `;
                 document.getElementById(id).innerHTML = content;
                 //Get Stocks and Amount Shares
-                var listDisplay = document.getElementById('stockListAndNumShares');
+                var tableDisplay = document.getElementById('stockListAndNumShares');
                 const stockSharesRef = tikrDatabase.collection('users').doc(user.uid).collection('stocks');
 
                 stockSharesRef.get().then(function (listData){
                     listData.forEach(function(doc){
                         console.log(doc.id, "==>", doc.data());
+                        var stockName = document.createElement('div');
+                        var stockDB = doc.data();
+                        stockName.innerHTML = stockDB.shares + " share(s) of " + doc.id;
+                        tableDisplay.appendChild(stockName);
                     });
                 });
                 //End Get Stocks and Amount Shares
