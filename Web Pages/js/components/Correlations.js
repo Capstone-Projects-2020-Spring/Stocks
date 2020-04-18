@@ -1,4 +1,5 @@
-//Used https://tableizer.journalistopia.com/tableizer.php to convert excel file into table
+//Used https://tableizer.journalistopia.com/tableizer.php by Danny Sanchez to convert excel file into table
+//used https://www.w3schools.com/howto/howto_js_filter_table.asp to learn filtering tables from W3Schools
 function Correlations(id) {
 
     var content = `
@@ -4964,3 +4965,28 @@ function Correlations(id) {
 
 }
 
+function searchCor() {
+
+    //Search Filter
+
+
+    var input = document.getElementById("corSearchStock");
+    var table = document.getElementById("corTable");
+    var tr = table.getElementsByTagName("tr");
+
+    for (i = 0; i < tr.length; i++) {
+        var td = tr[i].getElementsByTagName("td")[1];
+        var td2 = tr[i].getElementsByTagName("td")[2];
+        if (td || td2) {
+            var txtValue = td.textContent;
+
+            if (txtValue.toUpperCase().indexOf(input.value) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+
+    //End Search Filter
+}

@@ -1,6 +1,4 @@
 //learned user registration from https://www.youtube.com/watch?v=wkdCpktUfGg --> will modify to fit webstie
-
-//issue --> No alert if registering with an email that already exists
 function register(id) {
 
     var content = `
