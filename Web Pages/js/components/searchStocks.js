@@ -72,202 +72,203 @@ function searchStocks(id){
                 searchPrice.innerHTML += msg;
             }
 
+            var buyButton = document.getElementById('buyButton');
+            var sellButton = document.getElementById('sellButton');
 
 
-        }
-
-        var buyButton = document.getElementById('buyButton');
-        var sellButton = document.getElementById('sellButton');
-
-
-        auth.onAuthStateChanged(user => {
-
-            var userAccountRef = tikrDatabase.collection('users').doc(user.uid);
-            if (user) {
-                buyButton.style.display = "inline";
-                sellButton.style.display = "inline";
-                sharesQuestion.style.display = "inline";
-
-
-                buyButton.addEventListener('click', (e) => {
-                    var nBuyStocks = searchForm['numShares'].value;
-                    const numBuyStocks = parseInt(nBuyStocks);
-                    e.preventDefault();
-                    console.log("Number of shares to buy: " + nBuyStocks);
-
-
-                    var stockListRef = tikrDatabase.collection("users").doc(user.uid);
-                    const stockName = searchForm['searchTicker'].value;
-
-                    /*Adding to an array in DB
-                    return tikrDatabase.collection('users').doc(user.uid).update({
-                        stockList: firebase.firestore.FieldValue.arrayUnion(stockName),
-                    });
-                    */
-                    //reference to stock's document
-                    const stockSharesRef = tikrDatabase.collection('users').doc(user.uid).collection('stocks').doc(stockName);
-                    stockSharesRef.get().then(function (doc){
-                        if(doc.exists){
-                            console.log("The stock exists in this portfolio.");
-                            var stockDB = doc.data();
-                            var updateNumShares = stockDB.shares + numBuyStocks;
-                            userAccountRef.get().then(function (account){
-                                var accountData = account.data();
-                                var purchasingPower = accountData.purchasePower;
-                                console.log("Purchasing Power: " + purchasingPower);
-                                var investing = accountData.investing;
-                                console.log("Total Investing Amount: " + investing);
-                                var cost = numBuyStocks * price;
-                                console.log("The cost for this purchase: " + cost);
-                                var newPurchasingPower;
-                                var newInvesting;
-                                if(purchasingPower < cost) {
-                                    alert("This purchase can not be processed. The cost of this transaction is $" + cost.toFixed(2) + " for " + numBuyStocks + " shares of " + stockName + ". You only have $" + purchasingPower.toFixed(2));
-                                    console.log("message 1");
-                                } else{
-                                    alert("You have purchased " + numBuyStocks + " shares of " + stockTicker);
-                                    BuyStocks.value = "";
-                                    newPurchasingPower = purchasingPower - cost;
-                                    console.log("New Purchasing Power Amount: "+ newPurchasingPower);
-                                    newInvesting = investing + cost;
-                                    console.log("New Total Investing Amount: "+ newInvesting);
-                                    newPurchasingPower.toFixed(2);
-                                    newInvesting.toFixed(2);
-                                    userAccountRef.update({
-                                        purchasePower: newPurchasingPower,
-                                        investing: newInvesting,
-                                    });
-                                    stockSharesRef.update({
-                                        shares: updateNumShares,
-                                    });
-                                }
-
-                            });
-                        }else{
-                            userAccountRef.get().then(function (account){
-                                console.log("This stock does not exist in this portfolio");
-                                var accountData = account.data();
-                                console.log("The price of this stock: " + price);
-                                var purchasingPower = accountData.purchasePower;
-                                console.log("Purchasing Power: " + purchasingPower);
-                                var investing = accountData.investing;
-                                console.log("Total Investing Amount: " + investing);
-                                var cost = numBuyStocks * price;
-                                console.log("The cost for this purchase: " + cost);
-                                var newPurchasingPower;
-                                console.log("New Purchasing Power Amount: "+ newPurchasingPower);
-                                var newInvesting;
-                                console.log("New Total Investing Amount: "+ newInvesting);
-                                if(purchasingPower < cost) {
-                                    alert("This purchase can not be processed. The cost of this transaction is $" + cost.toFixed(2) + " for " + numBuyStocks + " shares of " + stockName + ". You only have $" + purchasingPower.toFixed(2));
-                                    console.log("message 2");
-                                } else{
-                                    alert("You have purchased " + numBuyStocks + " shares of " + stockTicker);
-                                    BuyStocks.value = "";
-                                    newPurchasingPower = purchasingPower - cost;
-                                    console.log("New Purchasing Power Amount: "+ newPurchasingPower);
-                                    newInvesting = investing + cost;
-                                    newInvesting.toFixed(2);
-                                    newPurchasingPower.toFixed(2);
-                                    console.log("New Total Investing Amount: "+ newInvesting);
-                                    userAccountRef.update({
-                                        purchasePower: newPurchasingPower,
-                                        investing: newInvesting,
-                                    });
-                                    stockSharesRef.set({
-                                        shares: numBuyStocks,
-                                    });
-                                }
-
-                            });
-
-
-                        }
-                    });
-                });
-
+            auth.onAuthStateChanged(user => {
 
                 var userAccountRef = tikrDatabase.collection('users').doc(user.uid);
-
-                sellButton.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    var nSellStocks = searchForm['numShares'].value;
-                    const numSellStocks = parseInt(nSellStocks);
-
-                    const stockName = searchForm['searchTicker'].value;
-
-                    const stockSharesRef = tikrDatabase.collection('users').doc(user.uid).collection('stocks').doc(stockName);
-                    stockSharesRef.get().then(function (doc){
-                        if(doc.exists){
-                            var stockDB = doc.data();
-                            var updateNumShares = stockDB.shares = stockDB.shares - numSellStocks;
-                            if(stockDB.shares < 0){
-                                alert("You do not have " + numSellStocks + " share(s) of " + stockTicker + " in your portfolio.");
-                            //else if stmt (shares == 0) --> delete the stock form db
-
-                            } else{
+                if (user) {
+                    buyButton.style.display = "inline";
+                    sellButton.style.display = "inline";
+                    sharesQuestion.style.display = "inline";
 
 
+                    buyButton.addEventListener('click', (e) => {
+                        var nBuyStocks = searchForm['numShares'].value;
+                        const numBuyStocks = parseInt(nBuyStocks);
+                        e.preventDefault();
+                        console.log("Number of shares to buy: " + nBuyStocks);
+
+
+                        var stockListRef = tikrDatabase.collection("users").doc(user.uid);
+                        const stockName = searchForm['searchTicker'].value;
+
+                        /*Adding to an array in DB
+                        return tikrDatabase.collection('users').doc(user.uid).update({
+                            stockList: firebase.firestore.FieldValue.arrayUnion(stockName),
+                        });
+                        */
+                        //reference to stock's document
+                        const stockSharesRef = tikrDatabase.collection('users').doc(user.uid).collection('stocks').doc(stockName);
+                        stockSharesRef.get().then(function (doc){
+                            if(doc.exists){
+                                console.log("The stock exists in this portfolio.");
+                                var stockDB = doc.data();
+                                var updateNumShares = stockDB.shares + numBuyStocks;
                                 userAccountRef.get().then(function (account){
                                     var accountData = account.data();
-                                    console.log(accountData);
-                                    //multiply current stock price by amount of shares in portfolio
-                                    //add that to the purchasing power
                                     var purchasingPower = accountData.purchasePower;
+                                    console.log("Purchasing Power: " + purchasingPower);
                                     var investing = accountData.investing;
-
-                                    var cost = numSellStocks * price;
-
-                                    var newPurchasingPower = purchasingPower + cost;
-                                    var newInvesting = investing - cost;
-                                    if(investing <= 0){
-                                        alert("You have no assets to sell");
-                                    }else if(stockDB.shares == 0){
-
-                                        stockSharesRef.delete().then(function () {
-                                            alert("You have sold all shares of " + stockTicker + " Successfully.");
-                                        });
+                                    console.log("Total Investing Amount: " + investing);
+                                    var cost = numBuyStocks * price;
+                                    console.log("The cost for this purchase: " + cost);
+                                    var newPurchasingPower;
+                                    var newInvesting;
+                                    if(purchasingPower < cost) {
+                                        alert("This purchase can not be processed. The cost of this transaction is $" + cost.toFixed(2) + " for " + numBuyStocks + " shares of " + stockName + ". You only have $" + purchasingPower.toFixed(2));
+                                        console.log("message 1");
+                                    } else{
+                                        alert("You have purchased " + numBuyStocks + " shares of " + stockTicker);
+                                        BuyStocks.value = "";
+                                        newPurchasingPower = purchasingPower - cost;
+                                        console.log("New Purchasing Power Amount: "+ newPurchasingPower);
+                                        newInvesting = investing + cost;
+                                        console.log("New Total Investing Amount: "+ newInvesting);
                                         newPurchasingPower.toFixed(2);
                                         newInvesting.toFixed(2);
                                         userAccountRef.update({
-                                            investing: newInvesting,
                                             purchasePower: newPurchasingPower,
-                                        });
-                                        BuyStocks.value = "";
-                                    }else{
-                                        newPurchasingPower.toFixed(2);
-                                        newInvesting.toFixed(2);
-                                        userAccountRef.update({
                                             investing: newInvesting,
-                                            purchasePower: newPurchasingPower,
                                         });
-                                        alert("You have sold " + numSellStocks + " share(s) of " + stockTicker);
-                                        BuyStocks.value = "";
                                         stockSharesRef.update({
                                             shares: updateNumShares,
                                         });
                                     }
+
                                 });
-                                //multiply current price by numSellStocks
-                                //subtract that result from investing and add it to purchasing power
-                                console.log(stockDB);
+                            }else{
+                                userAccountRef.get().then(function (account){
+                                    console.log("This stock does not exist in this portfolio");
+                                    var accountData = account.data();
+                                    console.log("The price of this stock: " + price);
+                                    var purchasingPower = accountData.purchasePower;
+                                    console.log("Purchasing Power: " + purchasingPower);
+                                    var investing = accountData.investing;
+                                    console.log("Total Investing Amount: " + investing);
+                                    var cost = numBuyStocks * price;
+                                    console.log("The cost for this purchase: " + cost);
+                                    var newPurchasingPower;
+                                    console.log("New Purchasing Power Amount: "+ newPurchasingPower);
+                                    var newInvesting;
+                                    console.log("New Total Investing Amount: "+ newInvesting);
+                                    if(purchasingPower < cost) {
+                                        alert("This purchase can not be processed. The cost of this transaction is $" + cost.toFixed(2) + " for " + numBuyStocks + " shares of " + stockName + ". You only have $" + purchasingPower.toFixed(2));
+                                        console.log("message 2");
+                                    } else{
+                                        alert("You have purchased " + numBuyStocks + " shares of " + stockTicker);
+                                        BuyStocks.value = "";
+                                        newPurchasingPower = purchasingPower - cost;
+                                        console.log("New Purchasing Power Amount: "+ newPurchasingPower);
+                                        newInvesting = investing + cost;
+                                        newInvesting.toFixed(2);
+                                        newPurchasingPower.toFixed(2);
+                                        console.log("New Total Investing Amount: "+ newInvesting);
+                                        userAccountRef.update({
+                                            purchasePower: newPurchasingPower,
+                                            investing: newInvesting,
+                                        });
+                                        stockSharesRef.set({
+                                            shares: numBuyStocks,
+                                        });
+                                    }
+
+                                });
+
+
                             }
-                        }else{
-                            alert("You do not have any shares of " + stockName + " in your portfolio.")
-                        }
+                        });
                     });
 
-                    /*
-                    return tikrDatabase.collection('users').doc(user.uid).update({
-                        stockList: firebase.firestore.FieldValue.arrayRemove(stockName),
+
+                    var userAccountRef = tikrDatabase.collection('users').doc(user.uid);
+
+                    sellButton.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        var nSellStocks = searchForm['numShares'].value;
+                        const numSellStocks = parseInt(nSellStocks);
+
+                        const stockName = searchForm['searchTicker'].value;
+
+                        const stockSharesRef = tikrDatabase.collection('users').doc(user.uid).collection('stocks').doc(stockName);
+                        stockSharesRef.get().then(function (doc){
+                            if(doc.exists){
+                                var stockDB = doc.data();
+                                var updateNumShares = stockDB.shares = stockDB.shares - numSellStocks;
+                                if(stockDB.shares < 0){
+                                    alert("You do not have " + numSellStocks + " share(s) of " + stockTicker + " in your portfolio.");
+                                    //else if stmt (shares == 0) --> delete the stock form db
+
+                                } else{
+
+
+                                    userAccountRef.get().then(function (account){
+                                        var accountData = account.data();
+                                        console.log(accountData);
+                                        //multiply current stock price by amount of shares in portfolio
+                                        //add that to the purchasing power
+                                        var purchasingPower = accountData.purchasePower;
+                                        var investing = accountData.investing;
+
+                                        var cost = numSellStocks * price;
+
+                                        var newPurchasingPower = purchasingPower + cost;
+                                        var newInvesting = investing - cost;
+                                        if(investing <= 0){
+                                            alert("You have no assets to sell");
+                                        }else if(stockDB.shares == 0){
+
+                                            stockSharesRef.delete().then(function () {
+                                                alert("You have sold all shares of " + stockTicker + " Successfully.");
+                                            });
+                                            newPurchasingPower.toFixed(2);
+                                            newInvesting.toFixed(2);
+                                            userAccountRef.update({
+                                                investing: newInvesting,
+                                                purchasePower: newPurchasingPower,
+                                            });
+                                            BuyStocks.value = "";
+                                        }else{
+                                            newPurchasingPower.toFixed(2);
+                                            newInvesting.toFixed(2);
+                                            userAccountRef.update({
+                                                investing: newInvesting,
+                                                purchasePower: newPurchasingPower,
+                                            });
+                                            alert("You have sold " + numSellStocks + " share(s) of " + stockTicker);
+                                            BuyStocks.value = "";
+                                            stockSharesRef.update({
+                                                shares: updateNumShares,
+                                            });
+                                        }
+                                    });
+                                    //multiply current price by numSellStocks
+                                    //subtract that result from investing and add it to purchasing power
+                                    console.log(stockDB);
+                                }
+                            }else{
+                                alert("You do not have any shares of " + stockName + " in your portfolio.")
+                            }
+                        });
+
+                        /*
+                        return tikrDatabase.collection('users').doc(user.uid).update({
+                            stockList: firebase.firestore.FieldValue.arrayRemove(stockName),
+                        });
+                        */
+
                     });
-                    */
-
-                });
 
 
-            }
-        });
+                }
+            });
+
+
+        }
+
+
 
 
         //prevents page from refreshing when info is submitted

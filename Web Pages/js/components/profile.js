@@ -16,6 +16,11 @@ Approach 3
     have a profit category
     total - 5000 = gain/loss
     press refresh
+
+
+{
+    "Note": "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency."
+}
 */
 
 function profile(id) {
@@ -84,8 +89,10 @@ function profile(id) {
 
                                 url: "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol="+stockNameStr+"&apikey=ZLFF9H8CUUTVT9R9",
                                 successFn: success,
+                                async: false,
                                 errorId: id
                             });
+
 
                             function success(obj) {
                                 console.log(obj["Global Quote"]);
@@ -96,38 +103,46 @@ function profile(id) {
                                     price2 = obj["Global Quote"];
                                     price2 = price2["05. price"];
                                     console.log(price2);
+                                    console.log(price2);
+                                    console.log(price2);
+                                    console.log(price2);
                                     price2 = price2.toString();
                                     price2 = parseFloat(price2);
+
+
+                                        //ajax call end
+                                        console.log("price = " + price2);
+                                        sharesAndPrice = stockDB.shares * price2;
+                                        console.log("shares * price2 = " + sharesAndPrice);
+
+                                        newInvesting = sharesAndPrice + newInvesting;
+                                        console.log("newInvesting = " + newInvesting);
+                                        return tikrDatabase.collection('users').doc(user.uid).update({
+                                            investing: newInvesting,
+                                        });
                                 }
 
-                                //ajax call end
-                                console.log("price = " + price2);
-                                sharesAndPrice = stockDB.shares * price2;
-                                console.log("shares * price2 = " + sharesAndPrice);
 
-                                newInvesting = sharesAndPrice + newInvesting;
-                                console.log("newInvesting = " + newInvesting);
-                                return tikrDatabase.collection('users').doc(user.uid).update({
-                                    investing: newInvesting,
-                                });
+
+
 
                             }
 
                         });
 
+                        purchasePowerRef.get().then(function (doc) {
+                            var accountData = doc.data();
+                            var totalAssets = (accountData.purchasePower + accountData.investing).toFixed(2);
+                            console.log("Total Assets: " + totalAssets);
+                            var profit = totalAssets - 5000;
 
+                            profitRef.innerHTML = profit.toString();
+
+                        });
 
 
                     });
-                    purchasePowerRef.get().then(function (doc) {
-                        var accountData = doc.data();
-                        var totalAssets = (accountData.purchasePower + accountData.investing).toFixed(2);
-                        console.log("Total Assets: " + totalAssets);
-                        var profit = totalAssets - 5000;
 
-                        profitRef.innerHTML = profit.toString();
-
-                    });
                 });
 
 
