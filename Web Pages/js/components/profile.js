@@ -76,7 +76,7 @@ function profile(id) {
                 var price2 = 0;
                 refreshButton.addEventListener('click', (e) => {
                     // refreshButton.innerHTML = "Changed";
-
+                    console.log("refresh has been clicked");
                     stockSharesRef2.get().then(function (listData){
                         listData.forEach(function(doc){
                             var stockName = document.createElement('div');
@@ -84,7 +84,7 @@ function profile(id) {
                             var stockNameStr = doc.id.toString();
                             // stockName.innerHTML = stockDB.shares + " share(s) of " + doc.id;
                             //ajax call
-                            console.log("This is the price after clicking search: " + price2);
+                            console.log("This is the price: " + price2);
                             ajax2({
 
                                 url: "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol="+stockNameStr+"&apikey=ZLFF9H8CUUTVT9R9",
@@ -113,13 +113,18 @@ function profile(id) {
                                         //ajax call end
                                         console.log("price = " + price2);
                                         sharesAndPrice = stockDB.shares * price2;
+                                        console.log("shares " + stockDB.shares);
                                         console.log("shares * price2 = " + sharesAndPrice);
 
+                                        //example googl --> 1279
+                                        //1st call newInvesting = 1279 + 0 = 1279
+                                        //2nd call newInvesting = 1279 + 1279 = 2558
                                         newInvesting = sharesAndPrice + newInvesting;
                                         console.log("newInvesting = " + newInvesting);
-                                        return tikrDatabase.collection('users').doc(user.uid).update({
+                                        tikrDatabase.collection('users').doc(user.uid).update({
                                             investing: newInvesting,
                                         });
+
                                 }
 
 
@@ -130,21 +135,27 @@ function profile(id) {
 
                         });
 
+                        newInvesting = 0;
+                        console.log("SharesRef2 newInvesting = " + newInvesting);
+
                         purchasePowerRef.get().then(function (doc) {
                             var accountData = doc.data();
                             var totalAssets = (accountData.purchasePower + accountData.investing).toFixed(2);
                             console.log("Total Assets: " + totalAssets);
+                            console.log(totalAssets - 5000);
                             var profit = totalAssets - 5000;
+                            console.log(profit);
 
                             profitRef.innerHTML = profit.toString();
-
+                            console.log("return called in ShareRef2");
+                            return;
                         });
 
-
                     });
+                    // console.log("return called in refresh");
+                    // return;
 
                 });
-
 
                 //user is not signed in
                 //**end refreshing
