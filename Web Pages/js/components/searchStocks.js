@@ -121,7 +121,7 @@ function searchStocks(id){
                                         alert("This purchase can not be processed. The cost of this transaction is $" + cost.toFixed(2) + " for " + numBuyStocks + " shares of " + stockName + ". You only have $" + purchasingPower.toFixed(2));
                                         console.log("message 1");
                                     } else{
-                                        alert("You have purchased " + numBuyStocks + " shares of " + stockTicker);
+
                                         BuyStocks.value = "";
                                         newPurchasingPower = purchasingPower - cost;
                                         console.log("New Purchasing Power Amount: "+ newPurchasingPower);
@@ -139,6 +139,7 @@ function searchStocks(id){
                                     }
 
                                 });
+                                alert("You have purchased " + numBuyStocks + " shares of " + stockTicker);
                             }else{
                                 userAccountRef.get().then(function (account){
                                     console.log("This stock does not exist in this portfolio");
