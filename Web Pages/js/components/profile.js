@@ -37,9 +37,10 @@ function profile(id) {
                               <h1>Welcome,</h1>
                                   ${doc.data().displayName} <br>
                                   Purchasing Power: $
-                                  ${doc.data().purchasePower.toFixed(2)}<br>
+                                  <div id="purchasingPowerDisp" style="display: inline"></div><br>
                                   Amount Invested: $
-                                  ${doc.data().investing.toFixed(2)}<button class="buttons" id="refButton" style="margin-left: 10px">Refresh</button><br>
+                                  <div id="investingDisp" style="display: inline"></div>
+                                  <button class="buttons" id="refButton" style="margin-left: 10px">Refresh</button><br>
                                   Gains/Loss:
                                   <div>$ <div id="profit" style="display: inline"></div></div><br>
                                   Portfolio:<br>
@@ -71,6 +72,8 @@ function profile(id) {
                 const stockSharesRef2 = tikrDatabase.collection('users').doc(user.uid).collection('stocks');
                 const purchasePowerRef = tikrDatabase.collection('users').doc(user.uid);
                 const profitRef = document.getElementById('profit');
+                const purchasePowerDispRef = document.getElementById('purchasingPowerDisp');
+                const investingDispRef = document.getElementById('investingDisp');
                 var newInvesting = 0;
                 var sharesAndPrice = 0;
                 var price2 = 0;
@@ -146,7 +149,14 @@ function profile(id) {
                             var profit = totalAssets - 5000;
                             console.log(profit);
 
+
+                            //const purchasePowerDispRef
+                            //const investingDispRef
+                            purchasePowerDispRef.innerHTML = accountData.purchasePower.toString();
+                            var investToFix = accountData.investing.toFixed(2);
+                            investingDispRef.innerHTML = investToFix.toString();
                             profitRef.innerHTML = profit.toString();
+
                             console.log("return called in ShareRef2");
                             return;
                         });
