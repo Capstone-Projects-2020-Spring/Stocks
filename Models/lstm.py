@@ -154,17 +154,17 @@ def build_model(shape):
     regressor = Sequential()
     # First LSTM layer with Dropout regularisation
     regressor.add(LSTM(units=50, return_sequences=True, input_shape=(shape, 1)))
-    regressor.add(Dropout(0.4))
+    regressor.add(Dropout(0.6))
     # Second LSTM layer
     regressor.add(LSTM(units=50, return_sequences=True))
-    regressor.add(Dropout(0.4))
+    regressor.add(Dropout(0.6))
     # Third LSTM layer
     regressor.add(LSTM(units=50, return_sequences=True))
-    regressor.add(Dropout(0.5))
+    regressor.add(Dropout(0.7))
     # model.add(Activation('sigmoid'))
     # Fourth LSTM layer
     regressor.add(LSTM(units=50))
-    regressor.add(Dropout(0.5))
+    regressor.add(Dropout(0.7))
     # The output layer
 
     regressor.add(Dense(units=1))
@@ -174,7 +174,7 @@ def build_model(shape):
     return regressor
 
 
-def train_model(model, epochs):
+def train_model(model, epochs, seq_length):
     for stock in stock_list:
         print(stock)
         try:
@@ -187,6 +187,32 @@ def train_model(model, epochs):
                 validation_data=(x_test, y_test))
         except:
             print("not found")
+def plot(model, seq_length, stock):
+    x_train, x_test, y_train, y_test, for_reverse, row = set_data(stock, seq_length)
+    predicted = predict_point_by_point(model, x_test)
+    correct, incorrect = accuracy(y_test, predicted)
+    new = []
+    new = x_test[-1][1:]
+    new = np.append(new, y_test[-1])
+    new = new.reshape(1, -1, 1)
+    newPredicted = model.predict(new)
+    predicted = np.append(predicted, newPredicted)
+    shown_val = round(len(y_test) * .5)
+    stock_acc = round(float(correct / (correct + incorrect)) * 100)
+    plt.figure(figsize=(10, 5))
+    plt.plot(y_test[shown_val:], label='true')
+    plt.plot(predicted[shown_val:], label='predicted')
+    plt.axvline(len(y_test[shown_val:]) - 1, 0, 1, linestyle='-.', color='black', label='april 9')
+    plt.xlabel('days')
+    plt.ylabel('normalized values')
+    plt.title(stock + " Normalized Stock Price\n Day to Day Accuracy: " + str(stock_acc) + "%")
+    plt.legend()
+    # plt.savefig("../1dayPredictions/" + stock +".png")
+    plt.show()
+    plt.clf()
+    if float(correct / (correct + incorrect)) > best:
+        best = float(correct / (correct + incorrect))
+        best_stock = stock
 
 
 stock_list_train = ['AMZN', 'MSFT', 'GOOGL', 'CTSH', 'VIVO', 'IBM', 'CSCO', 'NVDA','AMD', 'NKTR', 'WMT','AAPL','ABT','ACN','ADBE','AGN','AIG','ALL','AMGN','AXP','BA','BAC','BIIB','BK','BKNG',
@@ -199,8 +225,8 @@ stock_list_train = ['AMZN', 'MSFT', 'GOOGL', 'CTSH', 'VIVO', 'IBM', 'CSCO', 'NVD
 stock_list = ['AMZN', 'MSFT', 'GOOGL', 'CTSH', 'VIVO', 'IBM', 'CSCO', 'NVDA','AMD', 'NKTR', 'WMT']
 
 
-if __name__ == '__main__':
-    seq_length = 200
+def main(seq_len):
+    seq_length = seq_len
     model = load_model('stock_nn_1epochs_200bestRandom.h5')
     epochs = 1
     # stock_list = set_stock_list()
@@ -233,4 +259,3 @@ if __name__ == '__main__':
     print("best stock:", best_stock)
     print("score: ", best)
     print("average: ", float(average / length))
-
