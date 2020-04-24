@@ -4956,7 +4956,13 @@ function Correlations(id) {
  <tr><td>-1</td><td>TWX</td><td>VZ</td></tr>
  <tr><td>-1</td><td>TWX</td><td>WBA</td></tr>
  <tr><td>-1</td><td>TWX</td><td>WFC</td></tr>
-</tbody></table>   
+</tbody></table>  
+
+    <div id="foot">
+            <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></div>
+            <div>Icons made by <a href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></div>
+            <div>Icons made by <a href="https://www.flaticon.com/authors/those-icons" title="Those Icons">Those Icons</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></div>
+    </div> 
     `;
 
     document.getElementById(id).innerHTML = content;

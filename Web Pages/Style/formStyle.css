@@ -20,9 +20,10 @@
     background-color: skyblue;
     border-radius: 25px;
     border: solid white;
+    margin-top: 100px;
     width: 400px;
     height: 400px;
-    position: absolute;
+    position: relative;
     top: 30%;
     left: 35%;
 }

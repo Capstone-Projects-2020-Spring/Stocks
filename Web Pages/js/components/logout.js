@@ -6,6 +6,11 @@ function logout(id) {
         <h1 style="text-align: center;">Are you sure you want to logout?</h1>
             <button class="buttons" id="logoutBtn" style="position: relative; left: 35%;" >Logout</button>
     </div>
+    <div id="foot2">
+            <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></div>
+            <div>Icons made by <a href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></div>
+            <div>Icons made by <a href="https://www.flaticon.com/authors/those-icons" title="Those Icons">Those Icons</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></div>
+    </div>
     `;
 
 

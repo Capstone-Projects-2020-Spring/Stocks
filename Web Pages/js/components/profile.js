@@ -62,7 +62,12 @@ function profile(id) {
                                 <div id="err"></div>
                             </form>
                             <button class="buttons" id="showFormButton" style="margin-bottom: 10px;">Update Profile</button>
-                    </div>            
+                    </div>     
+        <div id="foot2">
+            <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></div>
+            <div>Icons made by <a href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></div>
+            <div>Icons made by <a href="https://www.flaticon.com/authors/those-icons" title="Those Icons">Those Icons</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></div>
+        </div>       
                 `;
                 document.getElementById(id).innerHTML = content;
 

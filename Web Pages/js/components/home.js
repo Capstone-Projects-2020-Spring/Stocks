@@ -12,6 +12,11 @@ function home(id) {
         yourself.
     </div>
     </div>
+     <div id="foot">
+            <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></div>
+            <div>Icons made by <a href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></div>
+            <div>Icons made by <a href="https://www.flaticon.com/authors/those-icons" title="Those Icons">Those Icons</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></div>
+    </div>
 <!--<div id="homeIntro">
     Thank you for visiting TIKR. If you would like to make money from investing then you have come to the right
     <br>place. This web application allows for the prediction of movements in prices for blue chips stocks.
