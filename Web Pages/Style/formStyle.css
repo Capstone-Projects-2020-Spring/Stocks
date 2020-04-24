@@ -4,9 +4,11 @@
     border: solid white;
     width: 300px;
     height: 300px;
-    position: absolute;
+    position: relative;
     top: 30%;
     left: 35%;
+    margin-top: 100px;
+    margin-bottom: 300px;
 }
 
 #formContent{
@@ -26,6 +28,7 @@
     position: relative;
     top: 30%;
     left: 35%;
+    margin-bottom: 300px;
 }
 
 #contactFormcontent{
@@ -56,9 +59,12 @@
     border: solid white;
     width: 300px;
     height: 250px;
-    position: absolute;
+    position: relative;
+    margin-top: 100px;
     top: 30%;
     left: 35%;
+
+    margin-bottom: 300px;
 }
 
 
