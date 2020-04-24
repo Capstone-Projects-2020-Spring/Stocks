@@ -157,7 +157,9 @@ function profile(id) {
 
                             //const purchasePowerDispRef
                             //const investingDispRef
-                            purchasePowerDispRef.innerHTML = accountData.purchasePower.toString();
+                            var purchasePowerToFix = accountData.purchasePower.toFixed(2);
+
+                            purchasePowerDispRef.innerHTML = purchasePowerToFix.toString();
                             var investToFix = accountData.investing.toFixed(2);
                             investingDispRef.innerHTML = investToFix.toString();
                             profitRef.innerHTML = profit.toString();
