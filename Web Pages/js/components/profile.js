@@ -5,19 +5,15 @@ Approach 1
     multiply # shares by new price
     subtract from (#shares times old price)
     add to profit
-
 Approach 2
     put refresh button next to investing
     call ajax on each stock and get price
     multiply price by number of shares
     add together and store and update investing
-
 Approach 3
     have a profit category
     total - 5000 = gain/loss
     press refresh
-
-
 {
     "Note": "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency."
 }
@@ -32,10 +28,10 @@ function profile(id) {
             console.log(user)
             tikrDatabase.collection('users').doc(user.uid).get().then(doc => {
                 const content = `
-                    <div id="profileContent" >
+                    <div id="portfolioContent" >
                             <div id="Welcome">
                               <h1>Welcome,</h1>
-                                  ${doc.data().displayName} <br>
+                                  ${doc.data().displayName} <br><br>
                                   Purchasing Power: $
                                   <div id="purchasingPowerDisp" style="display: inline"></div><br>
                                   Amount Invested: $
@@ -49,23 +45,21 @@ function profile(id) {
                                   </div>
                                   
                             </div>
-                            <br><br>
-                            Update Profile info: <br>
-                            <form id="profileForm" style="display: none; position: relative;">
+                            <form id="profileForm" style=" position: relative;">
+                                <h2>Update your profile here:</h2><br><br>
                                 <label for="username">Username</label><br>
-                                <input type="text" name="username" id="regUsername"><br>
+                                <input type="text" name="username" id="regUsername"><br><br>
                                 <label for="email">Email</label><br>
-                                <input type="text" name="email" id="regEmail"><br>
+                                <input type="text" name="email" id="regEmail"><br><br>
                                 <label for="password">Password</label><br>
-                                <input type="password" name="password" id="regPassword"><br>
+                                <input type="password" name="password" id="regPassword"><br><br>
                                 <button class="buttons" id="saveButton" style="margin-bottom: 10px;">Save</button>
                                 <div id="err"></div>
                             </form>
-                            <button class="buttons" id="showFormButton" style="margin-bottom: 10px;">Update Profile</button>
+                            
                     </div>            
                 `;
                 document.getElementById(id).innerHTML = content;
-
                 //**refreshing Investing to show profits
 
                 const refreshButton = document.getElementById('refButton');
@@ -113,20 +107,20 @@ function profile(id) {
                                     price2 = parseFloat(price2);
 
 
-                                        //ajax call end
-                                        console.log("price = " + price2);
-                                        sharesAndPrice = stockDB.shares * price2;
-                                        console.log("shares " + stockDB.shares);
-                                        console.log("shares * price2 = " + sharesAndPrice);
+                                    //ajax call end
+                                    console.log("price = " + price2);
+                                    sharesAndPrice = stockDB.shares * price2;
+                                    console.log("shares " + stockDB.shares);
+                                    console.log("shares * price2 = " + sharesAndPrice);
 
-                                        //example googl --> 1279
-                                        //1st call newInvesting = 1279 + 0 = 1279
-                                        //2nd call newInvesting = 1279 + 1279 = 2558
-                                        newInvesting = sharesAndPrice + newInvesting;
-                                        console.log("newInvesting = " + newInvesting);
-                                        tikrDatabase.collection('users').doc(user.uid).update({
-                                            investing: newInvesting,
-                                        });
+                                    //example googl --> 1279
+                                    //1st call newInvesting = 1279 + 0 = 1279
+                                    //2nd call newInvesting = 1279 + 1279 = 2558
+                                    newInvesting = sharesAndPrice + newInvesting;
+                                    console.log("newInvesting = " + newInvesting);
+                                    tikrDatabase.collection('users').doc(user.uid).update({
+                                        investing: newInvesting,
+                                    });
 
                                 }
 
@@ -184,66 +178,68 @@ function profile(id) {
                 });
                 //End Get Stocks and Amount Shares
 
-                var showForm = document.getElementById('profileForm');
-                var showFormButton = document.getElementById('showFormButton');
-                showFormButton.addEventListener('click', (e) =>{
-                   showFormButton.style.display = 'none';
-                   showForm.style.display = 'inline';
-                });
-
-                profileForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
+                // var showForm = document.getElementById('profileForm');
+                // var showFormButton = document.getElementById('showFormButton');
+                // showFormButton.addEventListener('click', (e) =>{
+                //     showFormButton.style.display = 'none';
+                //     showForm.style.display = 'inline';
+                // });
+                //
+                // profileForm.addEventListener('submit', (e) => {
+                //     e.preventDefault();
 
                     //update username, email and password
-                    if (profileForm['regUsername'].value != "" && profileForm['regEmail'].value != ""
-                        && profileForm['password'].value != "") {
+                    if (profileForm['regUsername'].value !== "" && profileForm['regEmail'].value !== ""
+                        && profileForm['password'].value !== "") {
+                        console.log("update all 3");
                         tikrDatabase.collection('users').doc(user.uid).update({
                             displayName: profileForm['regUsername'].value,
                         })
                         user.updateEmail(profileForm['regEmail'].value);
                         user.updatePassword(profileForm['regPassword'].value);
                         profileForm.reset();
-                    //update username and password
-                    } else if (profileForm['regUsername'].value != "" && profileForm['regEmail'].value != ""
-                        && profileForm['password'].value == ""){
+                        //update username and password
+                    } else if (profileForm['regUsername'].value !== "" && profileForm['regEmail'].value !== ""
+                        && profileForm['password'].value === ""){
+                        console.log("Update un and pw");
                         tikrDatabase.collection('users').doc(user.uid).update({
                             displayName: profileForm['regUsername'].value,
                         });
                         user.updateEmail(profileForm['regEmail'].value);
                         profileForm.reset();
-                    //update username and password
-                    } else if (profileForm['regUsername'].value != "" && profileForm['regEmail'].value == ""
-                        && profileForm['password'].value != ""){
+                        //update username and password
+                    } else if (profileForm['regUsername'].value !== "" && profileForm['regEmail'].value === ""
+                        && profileForm['password'].value !== ""){
                         tikrDatabase.collection('users').doc(user.uid).update({
                             displayName: profileForm['regUsername'].value,
                         });
                         user.updatePassword(profileForm['regPassword'].value);
                         profileForm.reset();
-                    //update email and password
-                    } else if (profileForm['regUsername'].value == "" && profileForm['regEmail'].value != ""
-                        && profileForm['password'].value != ""){
+                        //update email and password
+                    } else if (profileForm['regUsername'].value === "" && profileForm['regEmail'].value !== ""
+                        && profileForm['password'].value !== ""){
                         user.updateEmail(profileForm['regEmail'].value);
                         user.updatePassword(profileForm['regPassword'].value);
                         profileForm.reset();
                     }
                     //update username
-                   else if (profileForm['regUsername'].value != "" && profileForm['regEmail'].value == ""
-                        && profileForm['password'].value == ""){
+                    else if (profileForm['regUsername'].value !== "" && profileForm['regEmail'].value === ""
+                        && profileForm['password'].value === ""){
                         return tikrDatabase.collection('users').doc(user.uid).update({
                             displayName: profileForm['regUsername'].value
                         }).then(() => {
                             profileForm.reset();
                         });
                     }
-                   //update email
-                    else if (profileForm['regUsername'].value == "" && profileForm['regEmail'].value != ""
-                        && profileForm['password'].value == ""){
+                    //update email
+                    else if (profileForm['regUsername'].value === "" && profileForm['regEmail'].value !== ""
+                        && profileForm['password'].value === ""){
                         user.updateEmail(profileForm['regEmail'].value);
                         profileForm.reset();
                     }
                     //update password
-                    else if (profileForm['regUsername'].value == "" && profileForm['regEmail'].value == ""
-                        && profileForm['password'].value != ""){
+                    else if (profileForm['regUsername'].value === "" && profileForm['regEmail'].value === ""
+                        && profileForm['password'].value !== ""){
                         user.updatePassword(profileForm['regPassword'].value);
                         profileForm.reset();
                     }
@@ -252,7 +248,7 @@ function profile(id) {
                         document.getElementById("err").innerText = "Please enter a field."
                     }
                 });
-            });
+           // });
 
 
         }else{
@@ -264,5 +260,5 @@ function profile(id) {
                 `;
             document.getElementById(id).innerHTML = content;
         }
-    });
+     });
 }
