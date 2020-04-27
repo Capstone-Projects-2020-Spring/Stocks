@@ -58,7 +58,7 @@ var content = `
         </div>
         <div class="cardBack">
         <p>
-            The graph displays a trend with two different colored lines. The blue line is how the stock has been trending in the past, based on
+            The graph displays a trend with two different colored lines. The green line is how the stock has been trending in the past, based on
             that data a red line continues the trend and shows the predicted movement. Also, it shows the confidence with which the application
             believes the prediction to be correct.
         </p>
