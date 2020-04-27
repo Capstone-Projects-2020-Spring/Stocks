@@ -69,12 +69,15 @@ function searchStocks(id){
                 document.getElementById(id).innerHTML = "Http Request (from AJAX call) did not parse to an object.";
                 return;
             } else {
-                price = obj["Global Quote"];
+                 price = obj["Global Quote"];
                 price = price["05. price"];
                 console.log(price);
                 price = price.toString();
                 price = parseFloat(price);
+                var quote = obj["Global Quote"];
                 var msg = "</br>The price of " + stockTicker + " is currently $" + price;
+                msg += "</br>Yesterday's price was $" + parseFloat(quote["08. previous close"]);
+                msg += "</br>Percent Change is " + parseFloat(quote["10. change percent"]) + "%";
                 searchPrice.innerHTML += msg;
             }
 
