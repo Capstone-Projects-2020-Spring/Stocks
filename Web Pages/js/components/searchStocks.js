@@ -15,9 +15,10 @@ function searchStocks(id){
   
     <div id="stockPage"></div> 
 	<div id="searchPrice"></div>
-    <img style="padding-bottom: 10px" id="1DaySearchedStock" src="">
-    <img style="padding-bottom: 10px" id="nDaySearchedStock" src="">
-    <img style="padding-bottom: 10px" id="searchedStockMA" src=""><br>
+    <img style="padding-bottom: 10px" id="5DaySearchedStock" src="">
+    <img style="padding-bottom: 10px" id="10DaySearchedStock" src="">
+    <img style="padding-bottom: 10px" id="movingAvg" src=""><br>
+    <img style="padding-bottom: 10px" id="volume" src=""><br>
     <div id="howManyShares" style="display: none">How many shares?<input id="numShares" type="text"></div><br>
 <!--    <div id="howManySharesSell" style="display: none">How many shares would you like to sell?<input id="numSharesSell" type="number"></input></div><br>-->
     <button class="buttons" id="buyButton" style="display: none">Buy</button>
@@ -36,9 +37,10 @@ function searchStocks(id){
     document.getElementById(id).innerHTML = content;
 
     var storageRef = storage.ref();
-    var imageMvAvg = storageRef.child('movingAverageStocks');
-    var imageOneDay = storageRef.child('1DayPredictions');
-    var imageNDays = storageRef.child('nDays');
+    var imageMvAvg = storageRef.child('movingAverage');
+    var imageVolume = storageRef.child('volume');
+    var imageFiveDay = storageRef.child('5DayPredictions');
+    var imageTenDays = storageRef.child('10DayPredictions');
 
 
     const searchForm = document.querySelector('#searchContent');
@@ -279,7 +281,12 @@ function searchStocks(id){
         }
 
 
-
+        /*
+    <img style="padding-bottom: 10px" id="5DaySearchedStock" src="">
+    <img style="padding-bottom: 10px" id="10DaySearchedStock" src="">
+    <img style="padding-bottom: 10px" id="movingAvg" src=""><br>
+    <img style="padding-bottom: 10px" id="volume" src=""><br>
+        */
 
         //prevents page from refreshing when info is submitted
         e.preventDefault();
@@ -287,16 +294,16 @@ function searchStocks(id){
 
 
         const searchText = stockTicker + '.png';
-        imageOneDay.child(searchText).getDownloadURL().then(function(url) {
+        imageFiveDay.child(searchText).getDownloadURL().then(function(url) {
             // Or inserted into an <img> element:
-            var img = document.getElementById('1DaySearchedStock');
+            var img = document.getElementById('5DaySearchedStock');
                 img.style.display = "inline";
                 img.src = url;
 
         }).catch(function (error){
             switch (error.code) {
                 case 'storage/object-not-found':
-                    var img = document.getElementById('1DaySearchedStock');
+                    var img = document.getElementById('5DaySearchedStock');
                     img.src = "";
           }
         });
@@ -304,28 +311,46 @@ function searchStocks(id){
         imageMvAvg.child(searchText).getDownloadURL().then(function(url) {
             // Or inserted into an <img> element:
             // if
-            var img2 = document.getElementById('searchedStockMA');
+            var img2 = document.getElementById('movingAvg');
                 img2.style.display = "inline";
+                img2.style.height = "432px";
+                img2.style.width = "720px";
                 img2.src = url;
         }).catch(function (error){
             switch (error.code) {
                 case 'storage/object-not-found':
-                    var img2 = document.getElementById('searchedStockMA');
+                    var img2 = document.getElementById('movingAvg');
                     img2.src = "";
             }
         });
 
-        imageNDays.child(searchText).getDownloadURL().then(function(url) {
+        imageTenDays.child(searchText).getDownloadURL().then(function(url) {
             // Or inserted into an <img> element:
             // if
-            var img3 = document.getElementById('nDaySearchedStock');
+            var img3 = document.getElementById('10DaySearchedStock');
             img3.style.display = "inline";
                 img3.src = url;
         }).catch(function (error){
             switch (error.code) {
                 case 'storage/object-not-found':
-                    var img3 = document.getElementById('nDaySearchedStock');
+                    var img3 = document.getElementById('10DaySearchedStock');
                     img3.src = "";
+            }
+        });
+
+        imageVolume.child(searchText).getDownloadURL().then(function(url) {
+            // Or inserted into an <img> element:
+            // if
+            var img4 = document.getElementById('volume');
+            img4.style.display = "inline";
+            img4.style.height = "432px";
+            img4.style.width = "720px";
+            img4.src = url;
+        }).catch(function (error){
+            switch (error.code) {
+                case 'storage/object-not-found':
+                    var img4 = document.getElementById('volume');
+                    img4.src = "";
             }
         });
 
