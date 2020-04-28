@@ -8,17 +8,19 @@ from pprint import pprint
 
 # alpha vantage api key
 alpha_key = 'YNY88LER76HPO0G3'
+#alpha_key = 'KN8HZ3R0G7J9XHQ8'
+
 
 # list of stocks to retrieve
 # stock_list_original = ['MSFT', 'AAPL', 'AMD', 'FB', 'ROKU', 'ENPH', 'LYFT', 'AAL']
-<<<<<<< HEAD
-#stock_list = ['SPX']
-#stock_list = ['AAPL','ABBV','ABT','ACN','ADBE','AGN','AIG','ALL','AMGN','AMZN','AXP','BA','BAC','BIIB','BK','BKNG',
-#                'BLK','BMY','BRK.B','C','CAT','CHTR','CL','CMCSA','COF','COST','CSCO','CVS','CVX','DD','DHR','DIS',
-#                'DOW','DUK','EMR','EXC','F','FB','FDX','GD','GE','GILD','GM','GOOG','GOOGL','GS','HD','HON','IBM',
-#                'INTC','JNJ','JPM','KHC','KMI','KO','LLY','LMT','LOW','MA','MCD','MDLZ','MDT','MET','MMM','MO','MRK',
-#                'MS','MSFT','NEE','NFLX','NKE','NVDA','ORCL','OXY','PEP','PFE','PG','PM','PYPL','QCOM','RTN','SBUX','SLB',
-#                'SO','SPG','T','TGT','TMO','TXN','UNH','UNP','UPS','USB','UTX','V','VZ','WBA','WFC','WMT','XOM']
+
+# stock_list = ['SPX']
+stock_list = ['AAPL','ABBV','ABT','ACN','ADBE','AGN','AIG','ALL','AMGN','AMZN','AXP','BA','BAC','BIIB','BK','BKNG',
+               'BLK','BMY','BRK.B','C','CAT','CHTR','CL','CMCSA','COF','COST','CSCO','CVS','CVX','DD','DHR','DIS',
+               'DOW','DUK','EMR','EXC','F','FB','FDX','GD','GE','GILD','GM','GOOG','GOOGL','GS','HD','HON','IBM',
+               'INTC','JNJ','JPM','KHC','KMI','KO','LLY','LMT','LOW','MA','MCD','MDLZ','MDT','MET','MMM','MO','MRK',
+               'MS','MSFT','NEE','NFLX','NKE','NVDA','ORCL','OXY','PEP','PFE','PG','PM','PYPL','QCOM','RTN','SBUX','SLB',
+               'SO','SPG','T','TGT','TMO','TXN','UNH','UNP','UPS','USB','UTX','V','VZ','WBA','WFC','WMT','XOM']
 
 def convert_csv_to_tickers():
     df = pd.read_csv('nasdaqlisted.txt', sep='|')['Symbol']
@@ -29,23 +31,23 @@ def convert_csv_to_tickers():
         f.write(a + ',')
     f.close()
 
+
 def set_stock_list():
     arr = []
-    with open("NASDAQ.txt", "r") as filestream:
+    with open("NASDAQ2.txt", "r") as filestream:
         for line in filestream:
             currentline = line.split(',')
             arr.append(currentline)
     newarr = np.array(arr[0])
     return newarr
-=======
 
-stock_list = ['AAPL','ABBV','ABT','ACN','ADBE','AGN','AIG','ALL','AMGN','AMZN','AXP','BA','BAC','BIIB','BK','BKNG',
-                'BLK','BMY','BRK.B','C','CAT','CHTR','CL','CMCSA','COF','COST','CSCO','CVS','CVX','DD','DHR','DIS',
-                'DOW','DUK','EMR','EXC','F','FB','FDX','GD','GE','GILD','GM','GOOG','GOOGL','GS','HD','HON','IBM',
-                'INTC','JNJ','JPM','KHC','KMI','KO','LLY','LMT','LOW','MA','MCD','MDLZ','MDT','MET','MMM','MO','MRK',
-                'MS','MSFT','NEE','NFLX','NKE','NVDA','ORCL','OXY','PEP','PFE','PG','PM','PYPL','QCOM','RTN','SBUX','SLB',
-                'SO','SPG','T','TGT','TMO','TXN','UNH','UNP','UPS','USB','UTX','V','VZ','WBA','WFC','WMT','XOM']
->>>>>>> 5a10e580107392c882b4ea35eb297db6f58b0cae
+
+# stock_list = ['AAPL','ABBV','ABT','ACN','ADBE','AGN','AIG','ALL','AMGN','AMZN','AXP','BA','BAC','BIIB','BK','BKNG',
+#                'BLK','BMY','BRK.B','C','CAT','CHTR','CL','CMCSA','COF','COST','CSCO','CVS','CVX','DD','DHR','DIS',
+#                'DOW','DUK','EMR','EXC','F','FB','FDX','GD','GE','GILD','GM','GOOG','GOOGL','GS','HD','HON','IBM',
+#                'INTC','JNJ','JPM','KHC','KMI','KO','LLY','LMT','LOW','MA','MCD','MDLZ','MDT','MET','MMM','MO','MRK',
+#                'MS','MSFT','NEE','NFLX','NKE','NVDA','ORCL','OXY','PEP','PFE','PG','PM','PYPL','QCOM','RTN','SBUX','SLB',
+#                'SO','SPG','T','TGT','TMO','TXN','UNH','UNP','UPS','USB','UTX','V','VZ','WBA','WFC','WMT','XOM']
 
 def retrieve(stock_list):
     count = 1
@@ -88,23 +90,17 @@ def plot_graph(stock, data):
     plt.ylabel('Prices', color='firebrick')
     plt.title(stock + ': Prices over Time', color='darkblue')
     plt.savefig('../Stocks/Stock_Plot/' + stock + '.png')
-    #plt.show()
+    # plt.show()
 
 
 def main():
-<<<<<<< HEAD
     stock_list = set_stock_list()
-=======
->>>>>>> 5a10e580107392c882b4ea35eb297db6f58b0cae
     retrieve(stock_list)
 
 
 if __name__ == "__main__":
-<<<<<<< HEAD
     try:
         main()
     except:
-        print('no file')
-=======
-    main()
->>>>>>> 5a10e580107392c882b4ea35eb297db6f58b0cae
+        print('no')
+
