@@ -1,0 +1,76 @@
+#registerForm{
+    background-color: skyblue;
+    border-radius: 25px;
+    border: solid white;
+    width: 300px;
+    height: 300px;
+    position: relative;
+    top: 30%;
+    left: 35%;
+    margin-top: 100px;
+    margin-bottom: 300px;
+}
+
+#formContent{
+    padding: 20px;
+    position: relative;
+    left: 15%;
+    /*top: 5%;*/
+}
+
+#contactForm{
+    background-color: skyblue;
+    border-radius: 25px;
+    border: solid white;
+    margin-top: 100px;
+    width: 400px;
+    height: 400px;
+    position: relative;
+    top: 30%;
+    left: 35%;
+    margin-bottom: 300px;
+}
+
+#contactFormcontent{
+    padding: 20px;
+    position: relative;
+    left: 15%;
+    top: -5%;
+}
+
+#contactParagraph{
+    padding: 10px;
+}
+
+#resetForm{
+    background-color: skyblue;
+    border-radius: 25px;
+    border: solid white;
+    width: 300px;
+    height: 250px;
+    position: absolute;
+    top: 30%;
+    left: 35%;
+}
+
+#loginForm{
+    background-color: skyblue;
+    border-radius: 25px;
+    border: solid white;
+    width: 300px;
+    height: 250px;
+    position: relative;
+    margin-top: 100px;
+    top: 30%;
+    left: 35%;
+
+    margin-bottom: 300px;
+}
+
+
+#loginFormContent{
+    padding: 20px;
+    position: relative;
+    left: 15%;
+    /*top: 5%;*/
+}
