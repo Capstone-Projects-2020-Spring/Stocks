@@ -1,5 +1,4 @@
-//Current issue: when user has 0 shares, it displays 0 shares in the profile
-                //round numbers in database
+
 function searchStocks(id){
     var content = `
 <div id="searchContainer">
