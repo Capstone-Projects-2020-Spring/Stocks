@@ -1,0 +1,22 @@
+/*Learned button making from https://www.w3schools.com/howto/howto_css_animate_buttons.asp*/
+.buttons{
+    margin-top: 15px;
+    font-size: 16px;
+    text-align: center;
+    padding: 10px;
+    border: white solid 1px;
+    background-color: white;
+    border-radius: 25px;
+    box-shadow: 0px 5px 5px gray;
+    outline: none;
+}
+
+.buttons:hover{
+    background-color: #8cbed6;
+}
+
+.buttons:active{
+    /*background-color: #8cbed6;*/
+    box-shadow: 0 0px 5px gray;
+    transform: translateY(4px);
+}

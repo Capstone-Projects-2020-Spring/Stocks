@@ -1,0 +1,21 @@
+/*Auto generated style for table from https://tableizer.journalistopia.com/tableizer.php*/
+table.tableizer-table {
+    margin-top: 120px;
+    font-size: 12px;
+    border: 1px solid #CCC;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+.tableizer-table td {
+    padding: 3px 60px;
+    margin: 3px;
+    color: white;
+    border: 1px solid #CCC;
+    background-color: skyblue;
+}
+.tableizer-table th {
+    background-color: deepskyblue;
+    color: #FFF;
+    font-weight: bold;
+    padding: 10px 60px;
+}
