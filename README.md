@@ -9,8 +9,8 @@ TIKR is a machine learning application that predicts stock fluctuations based on
 - The frontend is a web application hosted on Temple’s cis-linux2 server that takes user input to search for our generated stock predictions stored by our python driver on the backend
 - The backend was composed of different machine learning models used to generate these predictions. These models included utilizing K-nearest neighbor (kNN) algorithm, linear regression, and an RNN algorithm using LSTM.
 
-![Design and Architecture]
-(https://github.com/Capstone-Projects-2020-Spring/Stocks/blob/master/archit.png)
+<img src= "archit.png" alt = "successful image" width = "500px" height = "1000px" >
+
 
 
 **Features**
