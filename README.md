@@ -20,6 +20,7 @@ TIKR is a machine learning application that predicts stock fluctuations based on
 - Stock Correlation Pages
 
 **Results**
+
 Generated stock predictions are reasonably accurate given current conditions of the stock market with day to day average accuracies of close to 73% across 3000 stocks. 
 For a comparison, our first model had an accuracy of around 56%
 
